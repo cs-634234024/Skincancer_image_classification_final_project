@@ -144,14 +144,14 @@ class _PredicScreenTwoState extends State<PredicScreenTwo> {
                           _output != null && _output[0]['label'] == 'malignent'
                               ? Predict_result(
                                   reslut:
-                                      'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง',
+                                      'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
                                   color: Colors.red,
                                 )
                               : _output != null &&
                                       _output[0]['label'] == 'benign'
                                   ? Predict_result(
                                       reslut:
-                                          'ไม่พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง',
+                                          'ไม่พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
                                       color: Colors.green,
                                     )
                                   : Text(

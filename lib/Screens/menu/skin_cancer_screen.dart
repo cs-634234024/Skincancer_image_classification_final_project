@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skincacer_project_final/constrance.dart';
 
 class SkinCancerScreen extends StatefulWidget {
   const SkinCancerScreen({Key key}) : super(key: key);
@@ -10,8 +12,11 @@ class SkinCancerScreen extends StatefulWidget {
 }
 
 class _SkinCancerScreenState extends State<SkinCancerScreen> {
-  TextStyle headerstyle =
-      TextStyle(fontSize: 15, color: Colors.white, fontFamily: 'Taitham3');
+  TextStyle headerstyle = TextStyle(
+      fontSize: 17,
+      color: kheaderColor,
+      fontFamily: 'Taitham3',
+      fontWeight: FontWeight.bold);
 
   int indexbutton = 0;
 
@@ -32,130 +37,140 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigo,
-      ),
-      backgroundColor: Colors.indigo,
-      body: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Text(
-              'What is skin cancer?',
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Taitham3'),
+    return SingleChildScrollView(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 45.0),
+          child: Text(
+            'What is skin cancer?',
+            style: TextStyle(
+              fontSize: 25,
+              color: kheaderColor,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text: 'มะเร็งผิวหนังคืออะไร', style: headerstyle),
-                      TextSpan(
-                          text: '\t\t\tสาเหตุ/ปัจจัยเสี่ยง\n',
-                          style: headerstyle)
-                    ])),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'มะเร็งผิวหนัง ? \t อาการ/ปัจจัยเสี่ยง',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: kheaderColor,
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
+                FaIcon(
+                  FontAwesomeIcons.virus,
+                  color: kheaderColor,
+                )
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Row(
+            children: [
+              buttonNew(
+                title: 'มะเร็งผิวหนัง',
+                changeIndexButton: changeButton,
+                index: 1,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              buttonNew(
+                title: 'ปัจจัยเสี่ยง',
+                changeIndexButton: changeButton,
+                index: 2,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              buttonNew(
+                title: 'อาการ',
+                changeIndexButton: changeButton,
+                index: 3,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: size.height,
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: size.height * 0.05),
+                height: size.height,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      indexbutton == 1
+                          ? TextOuput(
+                              title: 'มะเร็งผิว',
+                              icon: FaIcon(
+                                FontAwesomeIcons.viruses,
+                                color: Colors.white,
+                              ))
+                          : indexbutton == 2
+                              ? TextOuput(
+                                  title: 'ความเสี่ยง',
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.headSideCough,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : TextOuput(
+                                  title: 'อาการ',
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.headSideVirus,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                      Image.asset(
+                        'assets/images/menu/alien.png',
+                        scale: 1.75,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SelectWidget(size)
                 ],
               ),
             ],
           ),
-          SizedBox(
-            height: size.height,
-            child: Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: size.height * 0.05),
-                  height: size.height,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24))),
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 35, top: 120.0),
-                          child: Text(
-                            indexbutton == 1
-                                ? 'มะเร็งผิวหนังคือ ?'
-                                : indexbutton == 2
-                                    ? 'ปัจจัยของมะเร็ง'
-                                    : 'อาการ',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Taitham3'),
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/images/menu/alien.png',
-                          scale: 1.5,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Row(
-                        children: [
-                          buttonNew(
-                            title: 'มะเร็งผิวหนัง',
-                            changeIndexButton: changeButton,
-                            index: 1,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          buttonNew(
-                            title: 'ปัจจัยเสี่ยง',
-                            changeIndexButton: changeButton,
-                            index: 2,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          buttonNew(
-                            title: 'อาการ',
-                            changeIndexButton: changeButton,
-                            index: 3,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SelectWidget(size)
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      )),
-    );
+        )
+      ],
+    ));
   }
 
   Widget SelectWidget(Size size) {
@@ -174,7 +189,7 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
       child: Container(
         width: size.width,
         decoration: BoxDecoration(
-            color: Colors.indigo, borderRadius: BorderRadius.circular(10)),
+            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
             Padding(
@@ -182,7 +197,10 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
               child: Text(
                 title,
                 style: TextStyle(
-                    fontSize: 17, color: Colors.white, fontFamily: 'Taitham3'),
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontFamily: 'Taitham3',
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Center(
@@ -231,7 +249,7 @@ class buttonNew extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-          color: Colors.indigo.shade50,
+          color: kbuttonWidgetColor,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
@@ -240,11 +258,50 @@ class buttonNew extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Taitham3'),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TextOuput extends StatelessWidget {
+  final String title;
+  final FaIcon icon;
+  const TextOuput({
+    Key key,
+    this.title,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+        decoration: BoxDecoration(
+            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            icon
           ],
         ),
       ),

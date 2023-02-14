@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skincacer_project_final/constrance.dart';
 
 class MethodTreatmentScreen extends StatefulWidget {
   const MethodTreatmentScreen({Key key}) : super(key: key);
@@ -10,10 +12,18 @@ class MethodTreatmentScreen extends StatefulWidget {
 }
 
 class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
-  TextStyle headerstyle =
-      TextStyle(fontSize: 15, color: Colors.white, fontFamily: 'Taitham3');
+  TextEditingController myController = TextEditingController();
+
+  String newcontroller = ' ';
+
+  TextStyle headerstyle = TextStyle(
+      fontSize: 17,
+      color: kheaderColor,
+      fontFamily: 'Taitham3',
+      fontWeight: FontWeight.bold);
 
   int indexbutton = 0;
+  List<String> detectword = [];
 
   void changeButton(int index) {
     setState(() {
@@ -28,136 +38,177 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
     '\t\t\t\t\t\tการป้องกัน\n\n 1.หลีกเลี่ยงแสงแดด ใช้ครีมกันแดด SPF > 15\n\n 2. หลีกเลี่ยงภาวะระคายเคืองผิวหนัง'
   ];
 
+  List<String> detectwordmanual = [
+    'คู่มือ',
+    'คุ่มือ',
+    'การใช้',
+    'แอปพลิเคชัน',
+    'แอพ',
+    'เเอปพลิเคชัน',
+    'เเอพ',
+    'ก',
+    'm',
+    'appication',
+    'a'
+  ];
+
+  String i = '';
+
+  void searchText() {
+    newcontroller = myController.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.indigo,
-      ),
-      backgroundColor: Colors.indigo,
-      body: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Text(
-              'Method of treatment',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+    return SingleChildScrollView(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 45.0),
+          child: Text(
+            'Method of Treatment',
+            style: TextStyle(
+              fontSize: 25,
+              color: kheaderColor,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: RichText(
-                        text: TextSpan(children: [
-                      TextSpan(text: 'วิธีการรักษา', style: headerstyle),
-                      TextSpan(
-                          text: '\t\t\tการตรวจวินิจฉัย/การรักษาเเละป้องกัน\n',
-                          style: headerstyle)
-                    ])),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'วิธีการรักษา\t วินิจฉัย/การรักษาเเละป้องกัน',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: kheaderColor,
+                    fontWeight: FontWeight.bold,
                   ),
+                ),
+                Icon(
+                  Icons.health_and_safety_rounded,
+                  color: kheaderColor,
+                )
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Row(
+            children: [
+              buttonNew(
+                title: 'วินิจฉัย',
+                changeIndexButton: changeButton,
+                index: 1,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              buttonNew(
+                title: 'การรักษา',
+                changeIndexButton: changeButton,
+                index: 2,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              buttonNew(
+                title: 'การป้องกัน',
+                changeIndexButton: changeButton,
+                index: 3,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: size.height,
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: size.height * 0.05),
+                height: size.height,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      indexbutton == 1
+                          ? TextOuput(
+                              title: 'วินิจฉัย',
+                              icon: FaIcon(
+                                FontAwesomeIcons.stethoscope,
+                                color: Colors.white,
+                              ))
+                          : indexbutton == 2
+                              ? TextOuput(
+                                  title: 'รักษา',
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.heartbeat,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : TextOuput(
+                                  title: 'ป้องกัน',
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.shield,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                      //
+
+                      Image.asset(
+                        'assets/images/menu/maledoctor.png',
+                        scale: 1.5,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  SelectWidget(size)
                 ],
               ),
             ],
           ),
-          SizedBox(
-            height: size.height,
-            child: Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: size.height * 0.05),
-                  height: size.height,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24))),
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 35, top: 120.0),
-                          child: Text(
-                            indexbutton == 1
-                                ? 'วินิจฉัย'
-                                : indexbutton == 2
-                                    ? 'การรักษา'
-                                    : 'การป้องกัน',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Taitham3'),
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/images/menu/maledoctor.png',
-                          scale: 1.5,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Row(
-                        children: [
-                          buttonNew(
-                            title: 'วินิจฉัย',
-                            changeIndexButton: changeButton,
-                            index: 1,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          buttonNew(
-                            title: 'การรักษา',
-                            changeIndexButton: changeButton,
-                            index: 2,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          buttonNew(
-                            title: 'การป้องกัน',
-                            changeIndexButton: changeButton,
-                            index: 3,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SelectWidget(size)
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      )),
-    );
+        )
+      ],
+    ));
   }
 
   Widget SelectWidget(Size size) {
+    newcontroller = myController.text;
+
+    for (i in detectwordmanual) {
+      if (i == newcontroller) {
+        indexbutton = 2;
+      }
+    }
+
     if (indexbutton == 1) {
       return skinCancer(size, detail[0]);
     } else if (indexbutton == 2) {
@@ -173,7 +224,7 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
       child: Container(
         width: size.width,
         decoration: BoxDecoration(
-            color: Colors.indigo, borderRadius: BorderRadius.circular(10)),
+            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
             Padding(
@@ -181,7 +232,10 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
               child: Text(
                 title,
                 style: TextStyle(
-                    fontSize: 18, color: Colors.white, fontFamily: 'Taitham3'),
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontFamily: 'Taitham3',
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
@@ -213,6 +267,45 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
   }
 }
 
+class TextOuput extends StatelessWidget {
+  final String title;
+  final FaIcon icon;
+  const TextOuput({
+    Key key,
+    this.title,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+        decoration: BoxDecoration(
+            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            icon
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class buttonNew extends StatelessWidget {
   final String title;
   final Function changeIndexButton;
@@ -233,7 +326,7 @@ class buttonNew extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-          color: Colors.indigo.shade50,
+          color: kbuttonWidgetColor,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
@@ -242,7 +335,7 @@ class buttonNew extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.bold),
             ),

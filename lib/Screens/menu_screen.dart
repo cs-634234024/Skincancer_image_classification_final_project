@@ -133,97 +133,100 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: size.height * 0.35,
-          decoration: BoxDecoration(
-              color: Colors.indigo,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-        ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text('Scan Skin',
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo.shade100)),
-            ),
-            Text(
-              'Skin Cancer Imageclassifications',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  autofocus: false,
-                  controller: myController,
-                  decoration: InputDecoration(
-                      hintText: 'Seaarch',
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            detectWordForSearch();
-                          },
-                          icon: Icon(
-                            Icons.search,
-                            size: 30,
-                          ))),
-                ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            height: size.height * 0.35,
+            decoration: BoxDecoration(
+                color: Colors.indigo,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text('Scan Skin',
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo.shade100)),
               ),
-            ),
-            Expanded(
-              child: Padding(
+              const Text(
+                'Skin Cancer Imageclassifications',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.8,
-                  children: <Widget>[
-                    MenuCard(
-                      imageicon: imageicon[1],
-                      changeindex: test,
-                      index: 1,
-                      title: 'คู่มือ',
-                      detail: detail[0],
-                    ),
-                    MenuCard(
-                      imageicon: imageicon[3],
-                      changeindex: test,
-                      index: 2,
-                      title: 'วิธีการรักษา',
-                      detail: detail[1],
-                    ),
-                    MenuCard(
-                      imageicon: imageicon[2],
-                      changeindex: test,
-                      index: 3,
-                      title: 'ตรวจสอบผิวหนัง',
-                      detail: detail[2],
-                    ),
-                    MenuCard(
-                      imageicon: imageicon[0],
-                      changeindex: test,
-                      index: 4,
-                      title: 'มะเร็งผิวหนังคือ ?',
-                      detail: detail[3],
-                    ),
-                  ],
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: TextFormField(
+                    autofocus: false,
+                    controller: myController,
+                    decoration: InputDecoration(
+                        hintText: 'Seaarch',
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              detectWordForSearch();
+                            },
+                            icon: const Icon(
+                              Icons.search,
+                              size: 30,
+                            ))),
+                  ),
                 ),
               ),
-            )
-          ],
-        ),
-      ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 0.8,
+                    children: <Widget>[
+                      MenuCard(
+                        imageicon: imageicon[1],
+                        changeindex: test,
+                        index: 1,
+                        title: 'คู่มือ',
+                        detail: detail[0],
+                      ),
+                      MenuCard(
+                        imageicon: imageicon[3],
+                        changeindex: test,
+                        index: 2,
+                        title: 'วิธีการรักษา',
+                        detail: detail[1],
+                      ),
+                      MenuCard(
+                        imageicon: imageicon[2],
+                        changeindex: test,
+                        index: 3,
+                        title: 'ตรวจสอบผิวหนัง',
+                        detail: detail[2],
+                      ),
+                      MenuCard(
+                        imageicon: imageicon[0],
+                        changeindex: test,
+                        index: 4,
+                        title: 'มะเร็งผิวหนังคือ ?',
+                        detail: detail[3],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

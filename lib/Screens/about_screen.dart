@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:skincacer_project_final/constrance.dart';
 
+// ignore: must_be_immutable
 class AboutScreen extends StatelessWidget {
   AboutScreen({
     Key key,
@@ -18,59 +20,91 @@ class AboutScreen extends StatelessWidget {
         Container(
           height: size.height * 0.35,
           decoration: const BoxDecoration(
-              color: Colors.indigo,
+              color: kheaderColor,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20))),
         ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text('About Me',
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo.shade100)),
-            ),
-            const Text(
-              'Songkhla Rajabhat University',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-            const Text(
-              'Faculty Science And Technology',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.5,
-                  children: <Widget>[
-                    ListCard(
-                      studentId: '634234011',
-                      name: 'ปอริวัตน์ การันสันติ',
-                      imageicon: iconimages[1],
-                      index: 4,
-                    ),
-                    ListCard(
-                      studentId: '634234024',
-                      name: 'ฮาริส สาดีน',
-                      imageicon: iconimages[0],
-                      index: 4,
-                    ),
-                  ],
-                ),
+        Column(children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text('About Me',
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+          ),
+          const Text(
+            'Songkhla Rajabhat University',
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
+          const Text(
+            'Faculty Science And Technology',
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.6,
+                children: <Widget>[
+                  ListCard(
+                    name: 'ปอริวัตน์ การันสันติ',
+                    imageicon: iconimages[1],
+                    index: 4,
+                    github: 'cs-634234011',
+                  ),
+                  ListCard(
+                    name: 'ฮาริส สาดีน',
+                    imageicon: iconimages[0],
+                    index: 4,
+                    github: 'cs-634234024',
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              width: size.width,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20), color: Colors.white),
+              child: Column(
+                children: <Widget>[
+                  Image.asset(
+                    iconimages[1],
+                    scale: 2,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    'ดร.ศศิน จันทร์พวงทอง',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontFamily: 'Taitham3'),
+                  ),
+                  const Text(
+                    'อาจารย์ที่ปรึกษา',
+                    style: TextStyle(
+                      fontFamily: 'Taitham3',
+                      fontSize: 18,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ]),
       ],
     );
   }
@@ -80,15 +114,15 @@ class ListCard extends StatelessWidget {
   final String imageicon;
   final int index;
   final String name;
+  final String github;
   final Function changeindex;
-  final String studentId;
   const ListCard({
     Key key,
     this.imageicon,
     this.changeindex,
     this.index,
     this.name,
-    this.studentId,
+    this.github,
   }) : super(key: key);
 
   @override
@@ -96,8 +130,7 @@ class ListCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.indigo.shade50),
+          borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: Column(
         children: <Widget>[
           Image.asset(
@@ -114,13 +147,21 @@ class ListCard extends StatelessWidget {
                 fontSize: 18,
                 fontFamily: 'Taitham3'),
           ),
+          const Text(
+            'พัฒนาเเอปพลิเคชัน',
+            style: TextStyle(fontFamily: 'Taitham3', fontSize: 15),
+          ),
+          const Text(
+            'Github ',
+            style: TextStyle(
+                fontFamily: 'Taitham3',
+                fontSize: 15,
+                fontWeight: FontWeight.bold),
+          ),
           Text(
-            studentId,
-            style: const TextStyle(
-              fontFamily: 'Taitham3',
-              fontSize: 18,
-            ),
-          )
+            github,
+            style: const TextStyle(fontFamily: 'Taitham3', fontSize: 15),
+          ),
         ],
       ),
     );

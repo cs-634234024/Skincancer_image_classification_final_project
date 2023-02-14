@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:skincacer_project_final/Screens/menu/method_treatment_screen.dart';
+import 'package:skincacer_project_final/Screens/menu/skin_cancer_screen.dart';
+import 'package:skincacer_project_final/constrance.dart';
 import 'Screens/about_screen.dart';
-import 'Screens/menu_screen.dart';
+import 'Screens/menu/manual_screen.dart';
 import 'Screens/predictions_screen.dart';
 import 'widgets/bottombar.dart';
 
@@ -29,7 +31,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.indigo,
+          backgroundColor: kheaderColor,
           centerTitle: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,16 +53,22 @@ class _HomeState extends State<Home> {
             ],
           )),
       body: changeScreen(_selectindex),
-      bottomNavigationBar: BottomBarScreen(onItemTapped: _onItemTapped),
+      backgroundColor: kbackgroundColor,
+      bottomNavigationBar: BottomBarScreen(
+          onItemTapped: _onItemTapped, selectItem: _selectindex),
     );
   }
 }
 
 changeScreen(int index) {
   if (index == 0) {
-    return const MenuScreen();
-  } else if (index == 1) {
     return const PredictionsScreen();
+  } else if (index == 1) {
+    return const ManualScreen();
+  } else if (index == 2) {
+    return const MethodTreatmentScreen();
+  } else if (index == 3) {
+    return const SkinCancerScreen();
   } else {
     return AboutScreen();
   }

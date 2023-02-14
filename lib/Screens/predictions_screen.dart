@@ -5,6 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:skincacer_project_final/Screens/menu/skin_cancer_screen.dart';
+import 'package:skincacer_project_final/Screens/menu_screen.dart';
+import 'package:skincacer_project_final/constrance.dart';
 import 'package:tflite/tflite.dart';
 
 class PredictionsScreen extends StatefulWidget {
@@ -92,86 +95,110 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: size.height * 0.35,
-          decoration: BoxDecoration(
-              color: Colors.indigo,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-        ),
-        Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Text('Scan Skin',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo.shade100)),
+    return ListView(children: [
+      Stack(
+        children: <Widget>[
+          Container(
+            height: size.height * 0.35,
+            decoration: BoxDecoration(
+                color: kheaderColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
           ),
-          Text(
-            'Skin Cancer Imageclassifications',
-            style: TextStyle(fontSize: 15, color: Colors.white),
-          ),
-          Center(
-              child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    width: size.width,
-                    height: 550,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.indigo.shade50,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: _loading == true
-                              ? boxLogoImages()
-                              : boxResultImages(image: _image),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        _output != null && _output[0]['label'] == 'malignent'
-                            ? Predict_result(
-                                reslut:
-                                    'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
-                                color: Colors.red,
-                              )
-                            : _output != null && _output[0]['label'] == 'benign'
-                                ? Predict_result(
-                                    reslut:
-                                        'ไม่พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง',
-                                    color: Colors.green,
-                                  )
-                                : Text(
-                                    'เลือกรูปของคุณ',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Taitham3'),
-                                  ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        customButton("Take a Photo", iconSvg[0], pickImage),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        customButton(
-                            "Camera Roll", iconSvg[1], pickGalleryImage),
-                      ],
-                    ),
-                  )))
-        ])
-      ],
-    );
+          Column(children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text('Scan Skin',
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            ),
+            Text(
+              'Skin Cancer Imageclassifications',
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
+            Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      width: size.width,
+                      height: 600,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Center(
+                            child: _loading == true
+                                ? boxLogoImages()
+                                : boxResultImages(image: _image),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          _output != null &&
+                                  _output[0]['label'] == 'malignent' &&
+                                  _output[0]['confidence'] > 0.75
+                              ? Predict_result(
+                                  reslut:
+                                      'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
+                                  color: Colors.red,
+                                  index: 1,
+                                  output: _output,
+                                )
+                              : _output != null &&
+                                      _output[0]['label'] == 'malignent' &&
+                                      _output[0]['confidence'] <= 0.75
+                                  ? Predict_result(
+                                      reslut:
+                                          'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
+                                      color: Colors.orange.shade500,
+                                      index: 1,
+                                      output: _output,
+                                    )
+                                  : _output != null &&
+                                          _output[0]['label'] == 'benign'
+                                      ? Predict_result(
+                                          reslut:
+                                              'ไม่พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง',
+                                          color: Colors.green,
+                                          index: 2,
+                                          output: _output,
+                                        )
+                                      : Text(
+                                          'เลือกรูปของคุณ',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Taitham3'),
+                                        ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          customButton("Take a Photo", iconSvg[0], pickImage),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          customButton(
+                              "Camera Roll", iconSvg[1], pickGalleryImage),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                              '(หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 75 เปอร์เซ็น)')
+                        ],
+                      ),
+                    )))
+          ])
+        ],
+      ),
+    ]);
   }
 
   Widget customButton(
@@ -188,7 +215,7 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 24, vertical: 17),
             decoration: BoxDecoration(
-              color: Colors.indigo.shade300,
+              color: kbuttonWidgetColor,
               borderRadius: BorderRadius.circular(15),
             ),
             child: Row(
@@ -216,10 +243,14 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
 class Predict_result extends StatelessWidget {
   final String reslut;
   final Color color;
+  final int index;
+  final List output;
   const Predict_result({
     Key key,
     this.reslut,
     this.color,
+    this.index,
+    this.output,
   }) : super(key: key);
 
   @override
@@ -236,16 +267,73 @@ class Predict_result extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 5,
         ),
-        Container(
-          decoration: BoxDecoration(
-              color: color, borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(reslut,
-                style: TextStyle(
-                    fontSize: 17, color: Colors.white, fontFamily: 'Taitham3')),
+        GestureDetector(
+          // ignore: void_checks
+          onTap: () {
+            print(index);
+            if (index == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MenuScreen(),
+                  ));
+            } else {
+              return SkinCancerScreen();
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                color: color, borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  index == 1 && output[0]['confidence'] > 0.75
+                      ? Column(
+                          children: [
+                            Text(reslut,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                    fontFamily: 'Taitham3')),
+                            Text('มากกว่า 75 เปอร์เซ็น',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                    fontFamily: 'Taitham3')),
+                            Text(
+                              '(คลิ๊กเพื่อดูรายละเอียด)',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        )
+                      : index == 1 && output[0]['confidence'] <= 0.75
+                          ? Column(children: [
+                              Text(reslut,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.white,
+                                      fontFamily: 'Taitham3')),
+                              Text('น้อยกว่า 75 เปอร์เซ็น',
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.white,
+                                      fontFamily: 'Taitham3')),
+                              Text(
+                                '(คลิ๊กเพื่อดูรายละเอียด)',
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ])
+                          : Text(reslut,
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.white,
+                                  fontFamily: 'Taitham3')),
+                ],
+              ),
+            ),
           ),
         )
       ],
