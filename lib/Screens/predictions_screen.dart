@@ -1,13 +1,16 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:skincacer_project_final/Screens/menu/prediction_green.dart';
+import 'package:skincacer_project_final/Screens/menu/prediction_red.dart';
 import 'package:skincacer_project_final/Screens/menu/skin_cancer_screen.dart';
-import 'package:skincacer_project_final/Screens/menu_screen.dart';
+
 import 'package:skincacer_project_final/constrance.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'package:tflite/tflite.dart';
 
 class PredictionsScreen extends StatefulWidget {
@@ -171,12 +174,20 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                                           index: 2,
                                           output: _output,
                                         )
-                                      : Text(
-                                          'เลือกรูปของคุณ',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Taitham3'),
+                                      : Column(
+                                          children: [
+                                            Text(
+                                              'เลือกรูปของคุณ',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Taitham3'),
+                                            ),
+                                            Text(
+                                                'หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 80 เปอร์เซ็น'),
+                                            Text(
+                                                'อาจจะมีความคลาดเคลื่อนในการทำนายผล')
+                                          ],
                                         ),
                           SizedBox(
                             height: 20,
@@ -190,8 +201,6 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                           SizedBox(
                             height: 10,
                           ),
-                          Text(
-                              '(หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 75 เปอร์เซ็น)')
                         ],
                       ),
                     )))
@@ -270,17 +279,19 @@ class Predict_result extends StatelessWidget {
           height: 5,
         ),
         GestureDetector(
-          // ignore: void_checks
           onTap: () {
-            print(index);
             if (index == 1) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MenuScreen(),
+                    builder: (context) => PredictionRed(),
                   ));
             } else {
-              return SkinCancerScreen();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PredictionGreen(),
+                  ));
             }
           },
           child: Container(
@@ -303,10 +314,6 @@ class Predict_result extends StatelessWidget {
                                     fontSize: 17,
                                     color: Colors.white,
                                     fontFamily: 'Taitham3')),
-                            Text(
-                              '(คลิ๊กเพื่อดูรายละเอียด)',
-                              style: TextStyle(color: Colors.white),
-                            )
                           ],
                         )
                       : index == 1 && output[0]['confidence'] <= 0.75
@@ -321,16 +328,26 @@ class Predict_result extends StatelessWidget {
                                       fontSize: 17,
                                       color: Colors.white,
                                       fontFamily: 'Taitham3')),
-                              Text(
-                                '(คลิ๊กเพื่อดูรายละเอียด)',
-                                style: TextStyle(color: Colors.white),
-                              )
                             ])
                           : Text(reslut,
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Colors.white,
                                   fontFamily: 'Taitham3')),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 5, bottom: 5),
+                      child: Text('คลิ๊กเพื่อดูรายละเอียด',
+                          style: TextStyle(color: Colors.black)),
+                    ),
+                  ),
                 ],
               ),
             ),
