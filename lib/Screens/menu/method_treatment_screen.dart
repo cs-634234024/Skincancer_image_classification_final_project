@@ -307,7 +307,7 @@ class TextOuput extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
         decoration: BoxDecoration(
-            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
+            color: kheaderColor, borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names, deprecated_member_use
+// ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,14 +8,10 @@ class PredictionRed extends StatefulWidget {
   const PredictionRed({Key key}) : super(key: key);
 
   @override
-  State<PredictionRed> createState() => _PredictionRedScreenState();
+  State<PredictionRed> createState() => _PredictionRedState();
 }
 
-class _PredictionRedScreenState extends State<PredictionRed> {
-  TextEditingController myController = TextEditingController();
-
-  String newcontroller = ' ';
-
+class _PredictionRedState extends State<PredictionRed> {
   TextStyle headerstyle = TextStyle(
       fontSize: 17,
       color: kheaderColor,
@@ -23,39 +19,17 @@ class _PredictionRedScreenState extends State<PredictionRed> {
       fontWeight: FontWeight.bold);
 
   int indexbutton = 0;
-  List<String> detectword = [];
 
+  List<String> imageslist = [
+    'assets/images/manual/choice1.png',
+    'assets/images/manual/choice2.png',
+    'assets/images/manual/choice3.png'
+  ];
   void changeButton(int index) {
     setState(() {
       indexbutton = index;
       print(indexbutton);
     });
-  }
-
-  List<String> detail = [
-    '\t\t\t\t\t\tการตรวจวินิจฉัย\n\n การรักษามะเร็งผิวหนังที่ดีที่สุดคือ การค้นพบตั้งแต่แรกเริ่ม โดยต้องสำรวจร่างกายตัวเองให้ทั่ว ซึ่งต้องใช้กระจกและมือช่วย ถ้ามีข้อสงสัยให้ปรึกษาแพทย์ผิวหนังเพื่อการวินิจฉัย ซึ่งทำได้โดยการตัดชิ้นเนื้อบริเวณที่สงสัยส่งตรวจทางพยาธิวิทยา',
-    '\t\t\t\t\t\tการบำบัดรักษา \n\n มะเร็งผิวหนังระยะเริ่มต้นใช้วิธีการผ่าตัดก็สามารถหายขาดได้ แต่หากเป็นมะเร็งระยะกระจายหรือมะเร็งผิวหนังเมลาโนมา หลังผ่าตัดอาจต้องมีการใช้การฉายแสงหรือเคมีบำบัดร่วมได้',
-    '\t\t\t\t\t\tการป้องกัน\n\n 1.หลีกเลี่ยงแสงแดด ใช้ครีมกันแดด SPF > 15\n\n 2. หลีกเลี่ยงภาวะระคายเคืองผิวหนัง'
-  ];
-
-  List<String> detectwordmanual = [
-    'คู่มือ',
-    'คุ่มือ',
-    'การใช้',
-    'แอปพลิเคชัน',
-    'แอพ',
-    'เเอปพลิเคชัน',
-    'เเอพ',
-    'ก',
-    'm',
-    'appication',
-    'a'
-  ];
-
-  String i = '';
-
-  void searchText() {
-    newcontroller = myController.text;
   }
 
   @override
@@ -76,9 +50,9 @@ class _PredictionRedScreenState extends State<PredictionRed> {
           Padding(
             padding: const EdgeInsets.only(left: 45.0),
             child: Text(
-              'Method of Treatment',
+              'คำเเนะนำหากคุณเป็นมะเร็งผิวหนัง ?',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
                 color: kheaderColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -87,56 +61,52 @@ class _PredictionRedScreenState extends State<PredictionRed> {
           SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'วิธีการรักษา\t วินิจฉัย/การรักษาเเละป้องกัน',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: kheaderColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Icon(
-                    Icons.health_and_safety_rounded,
+          indexbutton == 1
+              ? OutputHeader(
+                  title: 'ขั้นตอนการรักษาหากคุณเป็นมะเร็งผิวหนัง',
+                  icon: FaIcon(
+                    FontAwesomeIcons.virus,
                     color: kheaderColor,
-                  )
-                ],
-              ),
-            ),
-          ),
+                  ),
+                )
+              : OutputHeader(
+                  title: 'หมายเหตุสำหรับการทำนายผลของมะเร็ง',
+                  icon: FaIcon(
+                    FontAwesomeIcons.virus,
+                    color: kheaderColor,
+                  ),
+                ),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                buttonNew(
-                  title: 'วินิจฉัย',
-                  changeIndexButton: changeButton,
-                  index: 1,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                buttonNew(
-                  title: 'การรักษา',
-                  changeIndexButton: changeButton,
-                  index: 2,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                buttonNew(
-                  title: 'การป้องกัน',
-                  changeIndexButton: changeButton,
-                  index: 3,
-                ),
+                indexbutton == 1
+                    ? buttonNew(
+                        changeIndexButton: changeButton,
+                        index: 1,
+                        title: 'การรักษา',
+                        changecolorbutton: kheaderColor,
+                      )
+                    : buttonNew(
+                        changeIndexButton: changeButton,
+                        index: 1,
+                        title: 'การรักษา',
+                        changecolorbutton: kbuttonWidgetColor,
+                      ),
+                indexbutton == 2
+                    ? buttonNew(
+                        changeIndexButton: changeButton,
+                        index: 2,
+                        title: 'หมายเหตุ',
+                        changecolorbutton: kheaderColor,
+                      )
+                    : buttonNew(
+                        changeIndexButton: changeButton,
+                        index: 2,
+                        title: 'หมายเหตุ',
+                        changecolorbutton: kbuttonWidgetColor,
+                      )
               ],
             ),
           ),
@@ -163,38 +133,54 @@ class _PredictionRedScreenState extends State<PredictionRed> {
                       children: [
                         indexbutton == 1
                             ? TextOuput(
-                                title: 'วินิจฉัย',
+                                title: 'การรักษา ',
                                 icon: FaIcon(
-                                  FontAwesomeIcons.stethoscope,
+                                  FontAwesomeIcons.heartbeat,
                                   color: Colors.white,
                                 ))
                             : indexbutton == 2
                                 ? TextOuput(
-                                    title: 'รักษา',
+                                    title: 'หมายเหตุ',
                                     icon: FaIcon(
-                                      FontAwesomeIcons.heartbeat,
+                                      FontAwesomeIcons.book,
                                       color: Colors.white,
                                     ),
                                   )
                                 : TextOuput(
-                                    title: 'ป้องกัน',
+                                    title: 'อาการ',
                                     icon: FaIcon(
-                                      FontAwesomeIcons.shield,
+                                      FontAwesomeIcons.headSideVirus,
                                       color: Colors.white,
                                     ),
                                   ),
-                        //
-
                         Image.asset(
                           'assets/images/menu/doctor.png',
-                          scale: 1.5,
+                          scale: 1.75,
                         ),
                       ],
                     ),
                     SizedBox(
-                      height: 1,
+                      height: 10,
                     ),
-                    SelectWidget(size)
+                    indexbutton == 1
+                        ? WidgetTreatment(
+                            size: size,
+                            title: 'ทางเลือกที่ 1 : การผ่าตัด',
+                            images: imageslist[1],
+                          )
+                        : skinCancer(size, 'test'),
+                    indexbutton == 1
+                        ? WidgetTreatment(
+                            size: size,
+                            title: 'ทางเลือกที่ 2 : การฉายรังสี',
+                            images: imageslist[0])
+                        : Container(),
+                    indexbutton == 1
+                        ? WidgetTreatment(
+                            size: size,
+                            title: 'ทางเลือกที่ 3 : เคมีบำบัด',
+                            images: imageslist[2])
+                        : Container(),
                   ],
                 ),
               ],
@@ -206,59 +192,169 @@ class _PredictionRedScreenState extends State<PredictionRed> {
     );
   }
 
-  Widget SelectWidget(Size size) {
-    newcontroller = myController.text;
-
-    if (indexbutton == 1) {
-      return skinCancer(size, detail[0]);
-    } else if (indexbutton == 2) {
-      return skinCancer(size, detail[1]);
-    } else {
-      return skinCancer(size, detail[2]);
-    }
-  }
-
   Padding skinCancer(Size size, String title) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         width: size.width,
         decoration: BoxDecoration(
-            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(10)),
+            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Text(
-                title,
+                '\tเเอปพลิเคชันนี้ได้จัดทำจากการนำรูปของชาวต่างชาติมาใช้ในการเทรน Ai ให้สามารถ จำเเนกรูปภาพไฝที่มีความเสี่ยงต่อการเป็นโรคมะเร็งผิวหนังเเละเนื่องด้วย สีผิวหรือลักษณะของผิวอาจจะมีความเเตกต่างกับคนไทย จึ่งทำให้ประสิทธิภาพในการจำเเนกภาพลดลงเเละด้วยเหตุนี้ หากเเอปพลิเคชันทำการจำเเนกภาพของคุณอยู่ในกลุ่มเสี่ยง ',
                 style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     color: Colors.white,
                     fontFamily: 'Taitham3',
                     fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Text('ผู้เขียน',
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WidgetTreatment extends StatelessWidget {
+  final String title;
+  final String images;
+  const WidgetTreatment({
+    Key key,
+    @required this.size,
+    this.title,
+    this.images,
+  }) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          width: size.width,
+          height: 150,
+          decoration: BoxDecoration(
+              color: kbottomColor, borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 18.0, top: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 17,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Taitham3')),
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 7,
+                ),
+                Row(
+                  children: [
+                    Image.asset(
+                      images,
+                      scale: 2,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Text(
+                        'เป็นการผ่าตัดแบบมาตรฐาน\nโดยจะทำการผ่าตัดก้อนเนื้อ\nมะเร็งที่อยู่บริเวณผิวหนัง\nและเนื้อเยื่อโดยรอบออก',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'พญ.พจนา  จิตตวัฒนรัตน์ ',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Taitham3'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class OutputHeader extends StatelessWidget {
+  final String title;
+  final FaIcon icon;
+  const OutputHeader({
+    Key key,
+    this.title,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 15,
+                color: kheaderColor,
+                fontWeight: FontWeight.bold,
               ),
+            ),
+            icon
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class buttonNew extends StatelessWidget {
+  final String title;
+  final Function changeIndexButton;
+  final Color changecolorbutton;
+  final int index;
+  const buttonNew({
+    Key key,
+    this.title,
+    this.changeIndexButton,
+    this.index,
+    this.changecolorbutton,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => changeIndexButton(index),
+      child: Container(
+        width: MediaQuery.of(context).size.width - 270,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: changecolorbutton,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Taitham3'),
             ),
           ],
         ),
@@ -283,7 +379,7 @@ class TextOuput extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
         decoration: BoxDecoration(
-            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
+            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -299,46 +395,6 @@ class TextOuput extends StatelessWidget {
               width: 20,
             ),
             icon
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class buttonNew extends StatelessWidget {
-  final String title;
-  final Function changeIndexButton;
-  final int index;
-  const buttonNew({
-    Key key,
-    this.title,
-    this.changeIndexButton,
-    this.index,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => changeIndexButton(index),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 270,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: kbuttonWidgetColor,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
           ],
         ),
       ),
