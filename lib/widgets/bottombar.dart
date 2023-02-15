@@ -45,11 +45,6 @@ class BottomBarScreen extends StatelessWidget {
               label: 'Skin Cancer',
               backgroundColor: kbottomColor,
             ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.userGroup),
-              label: 'About',
-              backgroundColor: kbottomColor,
-            )
           ],
           currentIndex: selectItem,
           selectedItemColor: Colors.white,

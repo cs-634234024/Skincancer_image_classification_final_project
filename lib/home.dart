@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skincacer_project_final/Screens/menu/method_treatment_screen.dart';
 import 'package:skincacer_project_final/Screens/menu/skin_cancer_screen.dart';
@@ -27,6 +27,8 @@ class _HomeState extends State<Home> {
     });
   }
 
+  int selectAbout = 4;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,20 +38,21 @@ class _HomeState extends State<Home> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Skin Cancer Classification',
-                style: GoogleFonts.lato(
-                    textStyle: Theme.of(context).textTheme.headline4,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white),
-              ),
+              const Text('Skin Cancer Classification',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               IconButton(
-                  onPressed: () {
-                    SystemNavigator.pop();
-                  },
-                  icon: const Icon(Icons.exit_to_app_outlined))
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AboutScreen(),
+                      ));
+                },
+                icon: const FaIcon(FontAwesomeIcons.userGroup),
+              )
             ],
           )),
       body: changeScreen(_selectindex),
@@ -67,9 +70,7 @@ changeScreen(int index) {
     return const ManualScreen();
   } else if (index == 2) {
     return const MethodTreatmentScreen();
-  } else if (index == 3) {
-    return const SkinCancerScreen();
   } else {
-    return AboutScreen();
+    return const SkinCancerScreen();
   }
 }

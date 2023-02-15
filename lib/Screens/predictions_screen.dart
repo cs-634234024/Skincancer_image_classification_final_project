@@ -127,7 +127,7 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                     padding: const EdgeInsets.all(16.0),
                     child: Container(
                       width: size.width,
-                      height: 600,
+                      height: 580,
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -198,9 +198,6 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                           ),
                           customButton(
                               "Camera Roll", iconSvg[1], pickGalleryImage),
-                          SizedBox(
-                            height: 10,
-                          ),
                         ],
                       ),
                     )))
@@ -383,7 +380,7 @@ class boxResultImages extends StatelessWidget {
                 ),
               )),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
         ],
       ),

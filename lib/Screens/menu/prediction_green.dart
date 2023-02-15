@@ -91,27 +91,51 @@ class _PredictionGreenState extends State<PredictionGreen> {
             padding: const EdgeInsets.all(5.0),
             child: Row(
               children: [
-                buttonNew(
-                  title: 'มะเร็งผิวหนัง',
-                  changeIndexButton: changeButton,
-                  index: 1,
-                ),
+                indexbutton == 1
+                    ? buttonNew(
+                        title: 'มะเร็งผิวหนัง',
+                        changeIndexButton: changeButton,
+                        index: 1,
+                        changecolorbutton: kbackgroundColor,
+                      )
+                    : buttonNew(
+                        title: 'มะเร็งผิวหนัง',
+                        changeIndexButton: changeButton,
+                        index: 1,
+                        changecolorbutton: kbuttonWidgetColor,
+                      ),
                 SizedBox(
                   width: 5,
                 ),
-                buttonNew(
-                  title: 'ปัจจัยเสี่ยง',
-                  changeIndexButton: changeButton,
-                  index: 2,
-                ),
+                indexbutton == 2
+                    ? buttonNew(
+                        title: 'ปัจจัยเสี่ยง',
+                        changeIndexButton: changeButton,
+                        index: 2,
+                        changecolorbutton: kbackgroundColor,
+                      )
+                    : buttonNew(
+                        title: 'ปัจจัยเสี่ยง',
+                        changeIndexButton: changeButton,
+                        index: 2,
+                        changecolorbutton: kbuttonWidgetColor,
+                      ),
                 SizedBox(
                   width: 5,
                 ),
-                buttonNew(
-                  title: 'อาการ',
-                  changeIndexButton: changeButton,
-                  index: 3,
-                ),
+                indexbutton == 2
+                    ? buttonNew(
+                        title: 'อาการ',
+                        changeIndexButton: changeButton,
+                        index: 3,
+                        changecolorbutton: kbackgroundColor,
+                      )
+                    : buttonNew(
+                        title: 'อาการ',
+                        changeIndexButton: changeButton,
+                        index: 3,
+                        changecolorbutton: kbuttonWidgetColor,
+                      ),
               ],
             ),
           ),
@@ -238,12 +262,14 @@ class _PredictionGreenState extends State<PredictionGreen> {
 class buttonNew extends StatelessWidget {
   final String title;
   final Function changeIndexButton;
+  final Color changecolorbutton;
   final int index;
   const buttonNew({
     Key key,
     this.title,
     this.changeIndexButton,
     this.index,
+    this.changecolorbutton,
   }) : super(key: key);
 
   @override
@@ -255,7 +281,7 @@ class buttonNew extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-          color: kbuttonWidgetColor,
+          color: changecolorbutton,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
