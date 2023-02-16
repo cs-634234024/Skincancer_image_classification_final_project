@@ -18,7 +18,7 @@ class _PredictionGreenState extends State<PredictionGreen> {
       fontFamily: 'Taitham3',
       fontWeight: FontWeight.bold);
 
-  int indexbutton = 0;
+  int indexbutton = 1;
 
   void changeButton(int index) {
     setState(() {
@@ -96,7 +96,7 @@ class _PredictionGreenState extends State<PredictionGreen> {
                         title: 'มะเร็งผิวหนัง',
                         changeIndexButton: changeButton,
                         index: 1,
-                        changecolorbutton: kbackgroundColor,
+                        changecolorbutton: kheaderColor,
                       )
                     : buttonNew(
                         title: 'มะเร็งผิวหนัง',
@@ -112,7 +112,7 @@ class _PredictionGreenState extends State<PredictionGreen> {
                         title: 'ปัจจัยเสี่ยง',
                         changeIndexButton: changeButton,
                         index: 2,
-                        changecolorbutton: kbackgroundColor,
+                        changecolorbutton: kheaderColor,
                       )
                     : buttonNew(
                         title: 'ปัจจัยเสี่ยง',
@@ -123,12 +123,12 @@ class _PredictionGreenState extends State<PredictionGreen> {
                 SizedBox(
                   width: 5,
                 ),
-                indexbutton == 2
+                indexbutton == 3
                     ? buttonNew(
                         title: 'อาการ',
                         changeIndexButton: changeButton,
                         index: 3,
-                        changecolorbutton: kbackgroundColor,
+                        changecolorbutton: kheaderColor,
                       )
                     : buttonNew(
                         title: 'อาการ',
@@ -182,10 +182,20 @@ class _PredictionGreenState extends State<PredictionGreen> {
                                       color: Colors.white,
                                     ),
                                   ),
-                        Image.asset(
-                          'assets/images/menu/alien.png',
-                          scale: 1.75,
-                        ),
+                        indexbutton == 1
+                            ? Image.asset(
+                                'assets/images/menu/virus.png',
+                                scale: 1.75,
+                              )
+                            : indexbutton == 2
+                                ? Image.asset(
+                                    'assets/images/menu/defencecancer.png',
+                                    scale: 1.75,
+                                  )
+                                : Image.asset(
+                                    'assets/images/menu/manarm.png',
+                                    scale: 1.75,
+                                  )
                       ],
                     ),
                     SizedBox(
@@ -318,7 +328,7 @@ class TextOuput extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
         decoration: BoxDecoration(
-            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
+            color: kheaderColor, borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

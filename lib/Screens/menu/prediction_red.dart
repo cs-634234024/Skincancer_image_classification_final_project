@@ -18,13 +18,20 @@ class _PredictionRedState extends State<PredictionRed> {
       fontFamily: 'Taitham3',
       fontWeight: FontWeight.bold);
 
-  int indexbutton = 0;
+  int indexbutton = 2;
 
   List<String> imageslist = [
     'assets/images/manual/choice1.png',
     'assets/images/manual/choice2.png',
     'assets/images/manual/choice3.png'
   ];
+
+  List<String> detail = [
+    '\t\t\tเป็นการผ่าตัดแบบมาตรฐานโดยจะทำการผ่าตัดก้อนเนื้อมะเร็งที่อยู่บริเวณผิวหนังและเนื้อเยื่อโดยรอบออก หากบริเวณที่ผ่าตัดออกมีขนาดใหญ่ อาจนำผิวหนังจากส่วนอื่นมาปิดบริเวณแผลเพื่อทำให้แผลหายเร็วขึ้น และจะทำให้รอยแผลเป็นน้อยลงได้',
+    '\t\t\tเป็นการใช้รังสีเพื่อกำจัดเซลล์มะเร็ง โดยวิธีนี้จะใช้รักษามะเร็งผิวหนังในกรณีที่ขนาดของมะเร็งมีขนาดใหญ่ ไม่สามารถผ่าตัดออกหมด หรืออยู่ในบริเวณที่ไม่สามารถผ่าตัดได้ บางครั้งก็ใช้กับผู้ป่วยเพื่อป้องกันไม่ให้กลับมาเป็นซ้ำ',
+    '\t\t\tแพทย์อาจใช้เคมีบำบัดรักษาผู้ป่วยมะเร็งผิวหนังที่ไม่ใช่เมลาโนมาก็ต่อเมื่อพบเนื้อร้ายที่บริเวณผิวหนังชั้นบน โดยมีวิธีการ คือ ใช้ยาทาที่มีส่วนผสมของยาเคมีบำบัดทาบริเวณที่เป็นมะเร็ง หรืออาจให้ยาเคมีบำบัดทางหลอดเลือด เพื่อรักษามะเร็งผิวหนังที่มีการแพร่กระจายไปยังอวัยวะอื่น ๆ'
+  ];
+
   void changeButton(int index) {
     setState(() {
       indexbutton = index;
@@ -38,156 +45,173 @@ class _PredictionRedState extends State<PredictionRed> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text('Skin Cancer Classification',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
         backgroundColor: kheaderColor,
       ),
-      body: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 45.0),
-            child: Text(
-              'คำเเนะนำหากคุณเป็นมะเร็งผิวหนัง ?',
-              style: TextStyle(
-                fontSize: 20,
-                color: kheaderColor,
-                fontWeight: FontWeight.bold,
+      body: ListView(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 45.0),
+              child: Text(
+                'คำเเนะนำหากคุณเป็นมะเร็งผิวหนัง ?',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: kheaderColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          indexbutton == 1
-              ? OutputHeader(
-                  title: 'ขั้นตอนการรักษาหากคุณเป็นมะเร็งผิวหนัง',
-                  icon: FaIcon(
-                    FontAwesomeIcons.virus,
-                    color: kheaderColor,
-                  ),
-                )
-              : OutputHeader(
-                  title: 'หมายเหตุสำหรับการทำนายผลของมะเร็ง',
-                  icon: FaIcon(
-                    FontAwesomeIcons.virus,
-                    color: kheaderColor,
-                  ),
-                ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                indexbutton == 1
-                    ? buttonNew(
-                        changeIndexButton: changeButton,
-                        index: 1,
-                        title: 'การรักษา',
-                        changecolorbutton: kheaderColor,
-                      )
-                    : buttonNew(
-                        changeIndexButton: changeButton,
-                        index: 1,
-                        title: 'การรักษา',
-                        changecolorbutton: kbuttonWidgetColor,
-                      ),
-                indexbutton == 2
-                    ? buttonNew(
-                        changeIndexButton: changeButton,
-                        index: 2,
-                        title: 'หมายเหตุ',
-                        changecolorbutton: kheaderColor,
-                      )
-                    : buttonNew(
-                        changeIndexButton: changeButton,
-                        index: 2,
-                        title: 'หมายเหตุ',
-                        changecolorbutton: kbuttonWidgetColor,
-                      )
-              ],
+            SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: size.height,
-            child: Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: size.height * 0.05),
-                  height: size.height,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20))),
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        indexbutton == 1
-                            ? TextOuput(
-                                title: 'การรักษา ',
-                                icon: FaIcon(
-                                  FontAwesomeIcons.heartbeat,
-                                  color: Colors.white,
-                                ))
-                            : indexbutton == 2
-                                ? TextOuput(
-                                    title: 'หมายเหตุ',
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.book,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                : TextOuput(
-                                    title: 'อาการ',
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.headSideVirus,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                        Image.asset(
-                          'assets/images/menu/doctor.png',
-                          scale: 1.75,
+            indexbutton == 1
+                ? OutputHeader(
+                    title: 'ขั้นตอนการรักษาหากคุณเป็นมะเร็งผิวหนัง',
+                    icon: FaIcon(
+                      FontAwesomeIcons.virus,
+                      color: kheaderColor,
+                    ),
+                  )
+                : OutputHeader(
+                    title: 'หมายเหตุสำหรับการทำนายผลของมะเร็ง',
+                    icon: FaIcon(
+                      FontAwesomeIcons.virus,
+                      color: kheaderColor,
+                    ),
+                  ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  indexbutton == 1
+                      ? buttonNew(
+                          changeIndexButton: changeButton,
+                          index: 1,
+                          title: 'การรักษา',
+                          changecolorbutton: kheaderColor,
+                        )
+                      : buttonNew(
+                          changeIndexButton: changeButton,
+                          index: 1,
+                          title: 'การรักษา',
+                          changecolorbutton: kbuttonWidgetColor,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    indexbutton == 1
-                        ? WidgetTreatment(
-                            size: size,
-                            title: 'ทางเลือกที่ 1 : การผ่าตัด',
-                            images: imageslist[1],
-                          )
-                        : skinCancer(size, 'test'),
-                    indexbutton == 1
-                        ? WidgetTreatment(
-                            size: size,
-                            title: 'ทางเลือกที่ 2 : การฉายรังสี',
-                            images: imageslist[0])
-                        : Container(),
-                    indexbutton == 1
-                        ? WidgetTreatment(
-                            size: size,
-                            title: 'ทางเลือกที่ 3 : เคมีบำบัด',
-                            images: imageslist[2])
-                        : Container(),
-                  ],
-                ),
-              ],
+                  indexbutton == 2
+                      ? buttonNew(
+                          changeIndexButton: changeButton,
+                          index: 2,
+                          title: 'หมายเหตุ',
+                          changecolorbutton: kheaderColor,
+                        )
+                      : buttonNew(
+                          changeIndexButton: changeButton,
+                          index: 2,
+                          title: 'หมายเหตุ',
+                          changecolorbutton: kbuttonWidgetColor,
+                        )
+                ],
+              ),
             ),
-          )
-        ],
-      )),
+            SizedBox(
+              height: size.height + 370,
+              child: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: size.height * 0.05),
+                    height: size.height + 380,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20))),
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          indexbutton == 1
+                              ? TextOuput(
+                                  title: 'การรักษา ',
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.heartbeat,
+                                    color: Colors.white,
+                                  ))
+                              : indexbutton == 2
+                                  ? TextOuput(
+                                      title: 'หมายเหตุ',
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.book,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : TextOuput(
+                                      title: 'หมายเหตุ',
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.book,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                          indexbutton == 1
+                              ? Image.asset(
+                                  'assets/images/menu/doctor.png',
+                                  scale: 1.75,
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Image.asset(
+                                    'assets/images/menu/doctor2.png',
+                                    scale: 1.75,
+                                  ),
+                                ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      indexbutton == 1
+                          ? WidgetTreatment(
+                              size: size,
+                              title: 'ทางเลือกที่ 1 : การผ่าตัด',
+                              images: imageslist[1],
+                              detail: detail[0],
+                            )
+                          : skinCancer(size, 'test'),
+                      indexbutton == 1
+                          ? WidgetTreatment(
+                              size: size,
+                              title: 'ทางเลือกที่ 2 : การฉายรังสี',
+                              images: imageslist[0],
+                              detail: detail[1])
+                          : Container(),
+                      indexbutton == 1
+                          ? WidgetTreatment(
+                              size: size,
+                              title: 'ทางเลือกที่ 3 : เคมีบำบัด',
+                              images: imageslist[2],
+                              detail: detail[2])
+                          : Container(),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
+      ]),
       backgroundColor: kbackgroundColor,
     );
   }
@@ -223,11 +247,13 @@ class _PredictionRedState extends State<PredictionRed> {
 class WidgetTreatment extends StatelessWidget {
   final String title;
   final String images;
+  final String detail;
   const WidgetTreatment({
     Key key,
     @required this.size,
     this.title,
     this.images,
+    this.detail,
   }) : super(key: key);
 
   final Size size;
@@ -239,7 +265,6 @@ class WidgetTreatment extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Container(
           width: size.width,
-          height: 150,
           decoration: BoxDecoration(
               color: kbottomColor, borderRadius: BorderRadius.circular(20)),
           child: Padding(
@@ -255,22 +280,23 @@ class WidgetTreatment extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  height: 7,
+                  height: 15,
                 ),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
                       images,
-                      scale: 2,
+                      scale: 2.5,
                     ),
                     SizedBox(
-                      width: 15,
+                      height: 15,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
+                      padding: const EdgeInsets.only(right: 10.0),
                       child: Text(
-                        'เป็นการผ่าตัดแบบมาตรฐาน\nโดยจะทำการผ่าตัดก้อนเนื้อ\nมะเร็งที่อยู่บริเวณผิวหนัง\nและเนื้อเยื่อโดยรอบออก',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        detail,
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     )
                   ],
@@ -379,7 +405,7 @@ class TextOuput extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
         decoration: BoxDecoration(
-            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(20)),
+            color: kheaderColor, borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

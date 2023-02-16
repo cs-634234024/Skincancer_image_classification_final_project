@@ -22,7 +22,7 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
       fontFamily: 'Taitham3',
       fontWeight: FontWeight.bold);
 
-  int indexbutton = 0;
+  int indexbutton = 1;
   List<String> detectword = [];
 
   void changeButton(int index) {
@@ -204,11 +204,23 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
                                   ),
                                 ),
                       //
-
-                      Image.asset(
-                        'assets/images/menu/maledoctor.png',
-                        scale: 1.5,
-                      ),
+                      indexbutton == 1
+                          ? Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Image.asset(
+                                'assets/images/menu/maleSvgrepo.png',
+                                scale: 1.5,
+                              ),
+                            )
+                          : indexbutton == 2
+                              ? Image.asset(
+                                  'assets/images/menu/maledoctor.png',
+                                  scale: 1.5,
+                                )
+                              : Image.asset(
+                                  'assets/images/menu/defencecancer.png',
+                                  scale: 1.5,
+                                )
                     ],
                   ),
                   SizedBox(

@@ -18,7 +18,7 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
       fontFamily: 'Taitham3',
       fontWeight: FontWeight.bold);
 
-  int indexbutton = 0;
+  int indexbutton = 1;
 
   void changeButton(int index) {
     setState(() {
@@ -178,10 +178,20 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
                                     color: Colors.white,
                                   ),
                                 ),
-                      Image.asset(
-                        'assets/images/menu/alien.png',
-                        scale: 1.75,
-                      ),
+                      indexbutton == 1
+                          ? Image.asset(
+                              'assets/images/menu/virus.png',
+                              scale: 1.75,
+                            )
+                          : indexbutton == 2
+                              ? Image.asset(
+                                  'assets/images/menu/defencecancer.png',
+                                  scale: 1.75,
+                                )
+                              : Image.asset(
+                                  'assets/images/menu/manarm.png',
+                                  scale: 1.75,
+                                )
                     ],
                   ),
                   SizedBox(
