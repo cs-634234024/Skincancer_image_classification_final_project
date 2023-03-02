@@ -7,10 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skincacer_project_final/Screens/menu/prediction_green.dart';
 import 'package:skincacer_project_final/Screens/menu/prediction_red.dart';
-import 'package:skincacer_project_final/Screens/menu/skin_cancer_screen.dart';
-
 import 'package:skincacer_project_final/constrance.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'package:tflite/tflite.dart';
 
 class PredictionsScreen extends StatefulWidget {
@@ -26,11 +23,10 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
   bool _loading = true;
   File _image;
   List _output;
-  final picker = ImagePicker(); //allows us to pick image from gallery or camera
+  final picker = ImagePicker();
 
   @override
   void initState() {
-    //initS is the first function that is executed by default when this class is called
     super.initState();
     loadModel().then((value) {
       setState(() {});
@@ -45,14 +41,12 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
   }
 
   classifyImage(File image) async {
-    //this function runs the model on the image
     var output = await Tflite.runModelOnImage(
       path: image.path,
-      numResults:
-          5, //the amout of categories our neural network can predict (here no. of animals)
-      threshold: 0.5,
-      imageMean: 127.5,
-      imageStd: 127.5,
+      numResults: 2,
+      threshold: 0.2,
+      imageMean: 0,
+      imageStd: 255,
     );
     setState(() {
       _output = output;
@@ -145,50 +139,22 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                           SizedBox(
                             height: 5,
                           ),
-                          _output != null &&
-                                  _output[0]['label'] == 'malignent' &&
-                                  _output[0]['confidence'] > 0.75
-                              ? Predict_result(
-                                  reslut:
-                                      'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
-                                  color: Colors.red,
-                                  index: 1,
-                                  output: _output,
-                                )
-                              : _output != null &&
-                                      _output[0]['label'] == 'malignent' &&
-                                      _output[0]['confidence'] <= 0.75
-                                  ? Predict_result(
-                                      reslut:
-                                          'พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง ',
-                                      color: Colors.orange.shade500,
-                                      index: 1,
-                                      output: _output,
-                                    )
-                                  : _output != null &&
-                                          _output[0]['label'] == 'benign'
-                                      ? Predict_result(
-                                          reslut:
-                                              'ไม่พบความเสี่ยงในการเป็นโรคมะเร็งผิวหนัง',
-                                          color: Colors.green,
-                                          index: 2,
-                                          output: _output,
-                                        )
-                                      : Column(
-                                          children: [
-                                            Text(
-                                              'เลือกรูปของคุณ',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Taitham3'),
-                                            ),
-                                            Text(
-                                                'หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 80 เปอร์เซ็น'),
-                                            Text(
-                                                'อาจจะมีความคลาดเคลื่อนในการทำนายผล')
-                                          ],
-                                        ),
+                          _output != null
+                              ? Text(_output[0].toString())
+                              : Column(
+                                  children: [
+                                    Text(
+                                      'เลือกรูปของคุณ',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Taitham3'),
+                                    ),
+                                    Text(
+                                        'หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 80 เปอร์เซ็น'),
+                                    Text('อาจจะมีความคลาดเคลื่อนในการทำนายผล')
+                                  ],
+                                ),
                           SizedBox(
                             height: 20,
                           ),
