@@ -139,22 +139,35 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                           SizedBox(
                             height: 5,
                           ),
-                          _output != null
-                              ? Text(_output[0].toString())
-                              : Column(
-                                  children: [
-                                    Text(
-                                      'เลือกรูปของคุณ',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Taitham3'),
+                          _output != null && _output[0]['label'] == 'malignent'
+                              ? Predict_result(
+                                  color: Colors.red,
+                                  index: 1,
+                                  reslut: 'พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
+                                )
+                              : _output != null &&
+                                      _output[0]['label'] == 'benign'
+                                  ? Predict_result(
+                                      color: Colors.green,
+                                      index: 2,
+                                      reslut:
+                                          'ไม่พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
+                                    )
+                                  : Column(
+                                      children: [
+                                        Text(
+                                          'เลือกรูปของคุณ',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Taitham3'),
+                                        ),
+                                        Text(
+                                            'หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 75 เปอร์เซ็น'),
+                                        Text(
+                                            'อาจจะมีความคลาดเคลื่อนในการทำนายผล')
+                                      ],
                                     ),
-                                    Text(
-                                        'หมายเหตุ เเอปพลิเคชันมีค่าความเเม่นยำ 80 เปอร์เซ็น'),
-                                    Text('อาจจะมีความคลาดเคลื่อนในการทำนายผล')
-                                  ],
-                                ),
                           SizedBox(
                             height: 20,
                           ),
@@ -216,13 +229,12 @@ class Predict_result extends StatelessWidget {
   final String reslut;
   final Color color;
   final int index;
-  final List output;
+
   const Predict_result({
     Key key,
     this.reslut,
     this.color,
     this.index,
-    this.output,
   }) : super(key: key);
 
   @override
@@ -264,7 +276,7 @@ class Predict_result extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  index == 1 && output[0]['confidence'] > 0.75
+                  index == 1
                       ? Column(
                           children: [
                             Text(reslut,
@@ -272,31 +284,13 @@ class Predict_result extends StatelessWidget {
                                     fontSize: 17,
                                     color: Colors.white,
                                     fontFamily: 'Taitham3')),
-                            Text('มากกว่า 75 เปอร์เซ็น',
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    color: Colors.white,
-                                    fontFamily: 'Taitham3')),
                           ],
                         )
-                      : index == 1 && output[0]['confidence'] <= 0.75
-                          ? Column(children: [
-                              Text(reslut,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.white,
-                                      fontFamily: 'Taitham3')),
-                              Text('น้อยกว่า 75 เปอร์เซ็น',
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.white,
-                                      fontFamily: 'Taitham3')),
-                            ])
-                          : Text(reslut,
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontFamily: 'Taitham3')),
+                      : Text(reslut,
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontFamily: 'Taitham3')),
                   SizedBox(
                     height: 5,
                   ),
