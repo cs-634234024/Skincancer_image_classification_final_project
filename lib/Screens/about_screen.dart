@@ -9,8 +9,9 @@ class AboutScreen extends StatelessWidget {
   }) : super(key: key);
 
   List<String> iconimages = [
-    'assets/images/menu/avatar1.png',
-    'assets/images/menu/avatar2.png'
+    'assets/images/about/lip.png',
+    'assets/images/about/ris.png',
+    'assets/images/about/sasin.jpg'
   ];
 
   @override
@@ -76,13 +77,13 @@ class AboutScreen extends StatelessWidget {
                   children: <Widget>[
                     ListCard(
                       name: 'ปอริวัตน์ การันสันติ',
-                      imageicon: iconimages[1],
+                      imageicon: iconimages[0],
                       index: 4,
                       github: 'cs-634234011',
                     ),
                     ListCard(
                       name: 'ฮาริส สาดีน',
-                      imageicon: iconimages[0],
+                      imageicon: iconimages[1],
                       index: 4,
                       github: 'cs-634234024',
                     ),
@@ -101,9 +102,9 @@ class AboutScreen extends StatelessWidget {
                       color: Colors.white),
                   child: Column(
                     children: <Widget>[
-                      Image.asset(
-                        iconimages[1],
-                        scale: 2,
+                      CircleAvatar(
+                        radius: 80,
+                        backgroundImage: AssetImage(iconimages[2]),
                       ),
                       const SizedBox(
                         height: 10,
@@ -157,9 +158,9 @@ class ListCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: Column(
         children: <Widget>[
-          Image.asset(
-            imageicon,
-            scale: 2,
+          CircleAvatar(
+            radius: 60,
+            backgroundImage: AssetImage(imageicon),
           ),
           const SizedBox(
             height: 10,
