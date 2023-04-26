@@ -88,7 +88,14 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                color: Colors.white, borderRadius: BorderRadius.circular(20),boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 7 , 
+                      blurRadius: 5 , 
+                      offset: Offset(0, 3)
+                    )
+                  ],),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -168,6 +175,14 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
                 margin: EdgeInsets.only(top: size.height * 0.05),
                 height: size.height,
                 decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 7 , 
+                      blurRadius: 5 , 
+                      offset: Offset(0, 3)
+                    )
+                  ],
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),

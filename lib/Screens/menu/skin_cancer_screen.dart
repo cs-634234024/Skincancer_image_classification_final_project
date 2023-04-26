@@ -63,7 +63,16 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),]
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -143,12 +152,23 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
                 margin: EdgeInsets.only(top: size.height * 0.05),
                 height: size.height,
                 decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 7 , 
+                      blurRadius: 5 , 
+                      offset: Offset(0, 3)
+                    )
+                  ],
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),
                         bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20))),
+                        bottomRight: Radius.circular(20))
+                        ),
+                        
+                        
               ),
               Column(
                 children: [
