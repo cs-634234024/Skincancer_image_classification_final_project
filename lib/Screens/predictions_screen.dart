@@ -144,6 +144,7 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                                   color: Colors.red,
                                   index: 1,
                                   reslut: 'พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
+                                  value: _output[0]['confidence'] * 100,
                                 )
                               : _output != null &&
                                       _output[0]['label'] == 'benign'
@@ -152,6 +153,7 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                                       index: 2,
                                       reslut:
                                           'ไม่พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
+                                      value: _output[0]['confidence' ]* 100,
                                     )
                                   : Column(
                                       children: [
@@ -229,12 +231,14 @@ class Predict_result extends StatelessWidget {
   final String reslut;
   final Color color;
   final int index;
+  final double value;
 
   const Predict_result({
     Key key,
     this.reslut,
     this.color,
     this.index,
+    this.value,
   }) : super(key: key);
 
   @override
@@ -284,13 +288,31 @@ class Predict_result extends StatelessWidget {
                                     fontSize: 17,
                                     color: Colors.white,
                                     fontFamily: 'Taitham3')),
+                            Text(
+                              '${value.toStringAsFixed(2)} % ',
+                              style: TextStyle(
+                                  fontSize: 21,
+                                  color: Colors.white,
+                                  fontFamily: 'taitham3'),
+                            )
                           ],
                         )
-                      : Text(reslut,
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.white,
-                              fontFamily: 'Taitham3')),
+                      : Column(
+                          children: [
+                            Text(reslut,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                    fontFamily: 'Taitham3')),
+                            Text(
+                              '${value.toStringAsFixed(2)} % ',
+                              style: TextStyle(
+                                  fontSize: 21,
+                                  color: Colors.white,
+                                  fontFamily: 'taitham3'),
+                            )
+                          ],
+                        ),
                   SizedBox(
                     height: 5,
                   ),
