@@ -44,7 +44,7 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
     var output = await Tflite.runModelOnImage(
       path: image.path,
       numResults: 2,
-      threshold: 0.2,
+      threshold: 0.5,
       imageMean: 0,
       imageStd: 255,
     );
@@ -153,7 +153,7 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                                       index: 2,
                                       reslut:
                                           'ไม่พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
-                                      value: _output[0]['confidence' ]* 100,
+                                      value: _output[0]['confidence'] * 100,
                                     )
                                   : Column(
                                       children: [

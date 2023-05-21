@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,6 +38,13 @@ class _PredictionRedState extends State<PredictionRed> {
       print(indexbutton);
     });
   }
+
+  List<String> images = [
+    'assets/images/malignant/1.jpg',
+    'assets/images/malignant/2.jpg',
+    'assets/images/malignant/3.jpg',
+    'assets/images/malignant/4.jpg'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -98,32 +105,113 @@ class _PredictionRedState extends State<PredictionRed> {
                           changeIndexButton: changeButton,
                           index: 1,
                           title: 'การรักษา',
-                          changecolorbutton: kheaderColor,
+                          changecolorfont: Colors.white,
+                          changecolorbutton: kbuttonWidgetColor,
                         )
                       : buttonNew(
                           changeIndexButton: changeButton,
                           index: 1,
                           title: 'การรักษา',
-                          changecolorbutton: kbuttonWidgetColor,
+                          changecolorbutton: Colors.white,
+                          changecolorfont: kheaderColor,
                         ),
                   indexbutton == 2
                       ? buttonNew(
                           changeIndexButton: changeButton,
                           index: 2,
                           title: 'หมายเหตุ',
-                          changecolorbutton: kheaderColor,
+                          changecolorbutton: kbuttonWidgetColor,
+                          changecolorfont: Colors.white,
                         )
                       : buttonNew(
                           changeIndexButton: changeButton,
                           index: 2,
                           title: 'หมายเหตุ',
-                          changecolorbutton: kbuttonWidgetColor,
-                        )
+                          changecolorbutton: Colors.white,
+                          changecolorfont: kheaderColor,
+                        ),
                 ],
               ),
             ),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: [
+            //     indexbutton == 1
+            //         ? selectButtonleft(
+            //             color: kbuttonWidgetColor,
+            //           )
+            //         : selectButtonleft(
+            //             color: kbackgroundColor,
+            //           ),
+            //     indexbutton == 2
+            //         ? selectButtonright(
+            //             color: kbuttonWidgetColor,
+            //           )
+            //         : selectButtonright(
+            //             color: kbackgroundColor,
+            //           )
+            //   ],
+            // ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                indexbutton == 1
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white54,
+                              // border: Border.all(color: kheaderColor, width: 1),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 16.0, top: 15),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        color: kbuttonWidgetColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 10),
+                                      child: Text(
+                                        'ลักษณะของ ใฝที่เป็นโรคมะเร็ง',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
+                              ),
+                              SizedBox(
+                                  height: 250,
+                                  child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        buildCardImage(
+                                          imageList: images[0],
+                                        ),
+                                        buildCardImage(
+                                          imageList: images[1],
+                                        ),
+                                        buildCardImage(imageList: images[2]),
+                                        buildCardImage(imageList: images[3])
+                                      ])),
+                            ],
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
             SizedBox(
-              height: size.height + 370,
+              height: indexbutton == 1 ? size.height + 460 : size.height - 220,
               child: Stack(
                 children: [
                   Container(
@@ -171,10 +259,11 @@ class _PredictionRedState extends State<PredictionRed> {
                                   scale: 1.75,
                                 )
                               : Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      right: 8.0, top: 10),
                                   child: Image.asset(
                                     'assets/images/menu/doctor2.png',
-                                    scale: 1.75,
+                                    scale: 1.95,
                                   ),
                                 ),
                         ],
@@ -244,6 +333,80 @@ class _PredictionRedState extends State<PredictionRed> {
   }
 }
 
+class selectButtonright extends StatelessWidget {
+  final Color color;
+  const selectButtonright({
+    Key key,
+    this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: Container(
+        width: 150,
+        height: 5,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: color),
+      ),
+    );
+  }
+}
+
+class selectButtonleft extends StatelessWidget {
+  final Color color;
+  const selectButtonleft({
+    Key key,
+    this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Container(
+        width: 150,
+        height: 5,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: color),
+      ),
+    );
+  }
+}
+
+class buildCardImage extends StatelessWidget {
+  final String imageList;
+  const buildCardImage({
+    Key key,
+    this.imageList,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: (Container(
+        width: 350,
+        height: 250,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.indigo),
+            borderRadius: BorderRadius.circular(20),
+            image: DecorationImage(
+                image: AssetImage(imageList), fit: BoxFit.cover),
+            color: Colors.white54),
+        // child: Padding(
+        //   padding: const EdgeInsets.all(16.0),
+        //   child: Image.asset(
+        //     imageList,
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
+      )),
+    );
+  }
+}
+
 class WidgetTreatment extends StatelessWidget {
   final String title;
   final String images;
@@ -280,7 +443,7 @@ class WidgetTreatment extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -293,10 +456,21 @@ class WidgetTreatment extends StatelessWidget {
                       height: 15,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Text(
-                        detail,
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Container(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              detail,
+                              style: TextStyle(
+                                  color: Colors.blueGrey, fontSize: 14),
+                            ),
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -351,12 +525,14 @@ class buttonNew extends StatelessWidget {
   final Function changeIndexButton;
   final Color changecolorbutton;
   final int index;
+  final Color changecolorfont;
   const buttonNew({
     Key key,
     this.title,
     this.changeIndexButton,
     this.index,
     this.changecolorbutton,
+    this.changecolorfont,
   }) : super(key: key);
 
   @override
@@ -366,7 +542,9 @@ class buttonNew extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width - 270,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
         decoration: BoxDecoration(
           color: changecolorbutton,
           borderRadius: BorderRadius.circular(15),
@@ -377,7 +555,7 @@ class buttonNew extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                  color: Colors.white,
+                  color: changecolorfont,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Taitham3'),

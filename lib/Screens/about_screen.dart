@@ -11,7 +11,7 @@ class AboutScreen extends StatelessWidget {
   List<String> iconimages = [
     'assets/images/about/lip.png',
     'assets/images/about/ris.png',
-    'assets/images/about/sasin.jpg'
+    'assets/images/about/sasin.jpg',
   ];
 
   @override
@@ -102,9 +102,17 @@ class AboutScreen extends StatelessWidget {
                       color: Colors.white),
                   child: Column(
                     children: <Widget>[
-                      CircleAvatar(
-                        radius: 80,
-                        backgroundImage: AssetImage(iconimages[2]),
+                      Container(
+                        height: 150,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(iconimages[2]),
+                                fit: BoxFit.contain),
+                            borderRadius: BorderRadius.circular(80),
+                            border: Border.all(color: kheaderColor, width: 1.0),
+                            color: Colors.white),
+                        // child:
                       ),
                       const SizedBox(
                         height: 10,
@@ -158,10 +166,26 @@ class ListCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: Column(
         children: <Widget>[
-          CircleAvatar(
-            radius: 60,
-            backgroundImage: AssetImage(imageicon),
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(imageicon), fit: BoxFit.contain),
+                borderRadius: BorderRadius.circular(80),
+                color: Colors.white,
+                border: Border.all(color: kheaderColor, width: 1)),
+
+            // child:
           ),
+
+          // CircleAvatar(
+          //   radius: 60,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Image.asset(imageicon),
+          //   ),
+          // ),
           const SizedBox(
             height: 10,
           ),
