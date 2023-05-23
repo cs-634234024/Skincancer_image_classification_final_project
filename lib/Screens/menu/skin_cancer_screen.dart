@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skincacer_project_final/constrance.dart';
 
+import '../../widgets/new_button.dart';
+import '../../widgets/output_detail.dart';
+import '../../widgets/output_header.dart';
+import '../../widgets/text_output.dart';
+
 class SkinCancerScreen extends StatefulWidget {
   const SkinCancerScreen({Key key}) : super(key: key);
 
@@ -12,18 +17,11 @@ class SkinCancerScreen extends StatefulWidget {
 }
 
 class _SkinCancerScreenState extends State<SkinCancerScreen> {
-  TextStyle headerstyle = TextStyle(
-      fontSize: 17,
-      color: kheaderColor,
-      fontFamily: 'Taitham3',
-      fontWeight: FontWeight.bold);
-
   int indexbutton = 1;
 
   void changeButton(int index) {
     setState(() {
       indexbutton = index;
-      print(indexbutton);
     });
   }
 
@@ -32,6 +30,16 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
     '\t\t\t\t\t\tปัจจัยเสี่ยง \n 1. แสงอัลตราไวโอเลต (UVA, UVB) ดังนั้นผู้ที่ต้องทำงานกลางแดด เล่นกีฬากลางแจ้ง ชอบอาบแดด จะมีความเสี่ยงสูงต่อการเกิดมะเร็งผิวหนัง \n 2. เชื้อชาติ คนผิวขาว ผมสีบลอนด์ มีโอกาสเสี่ยงสูง เพราะมีเม็ดสีที่ผิวหนังน้อย ความสามารถในการป้องกันเซลล์ผิวหนังจากแสงอัลตราไวโอเลตจึงน้อยกว่าคนผิวคล้ำ\n\n 3. มีประวัติคนในครอบครัวเป็นมะเร็งผิวหนัง \n\n 4. ภาวะภูมิคุ้มกันบกพร่อง เช่น HIV หรือได้รับยากดภูมิต้านทาน \n\n 5. ผิวหนังในบริเวณที่เคยได้รังสีรักษา',
     '\t\t\t\t\t\tอาการ \n 1.ดูบริเวณไฝที่เป็นว่ามีผื่นหรือก้อนที่โตเร็วกว่าปกติ หรือมีสีที่เปลี่ยนไป ขอบไม่เรียบ แตกเป็นแผล และมีเลือดออก \n 2. มีแผลเรื้อรังที่ไม่หาย \n 3. ผื่นเรื้อรัง'
   ];
+
+  Widget SelectWidget(Size size) {
+    if (indexbutton == 1) {
+      return OutputDetail(size: size, title: detail[0]);
+    } else if (indexbutton == 2) {
+      return OutputDetail(size: size, title: detail[1]);
+    } else {
+      return OutputDetail(size: size, title: detail[2]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,38 +66,11 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
         SizedBox(
           height: 10,
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'มะเร็งผิวหนัง ? \t อาการ/ปัจจัยเสี่ยง',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: kheaderColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                FaIcon(
-                  FontAwesomeIcons.virus,
-                  color: kheaderColor,
-                )
-              ],
-            ),
+        OutputHeader(
+          title: 'มะเร็งผิวหนัง ? \t อาการ/ปัจจัยเสี่ยง',
+          icon: FaIcon(
+            FontAwesomeIcons.virus,
+            color: kheaderColor,
           ),
         ),
         Padding(
@@ -97,13 +78,13 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
           child: Row(
             children: [
               indexbutton == 1
-                  ? buttonNew(
+                  ? NewButton(
                       title: 'มะเร็งผิวหนัง',
                       changeIndexButton: changeButton,
                       index: 1,
                       changecolorbutton: kheaderColor,
                     )
-                  : buttonNew(
+                  : NewButton(
                       title: 'มะเร็งผิวหนัง',
                       changeIndexButton: changeButton,
                       index: 1,
@@ -113,13 +94,13 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
                 width: 5,
               ),
               indexbutton == 2
-                  ? buttonNew(
+                  ? NewButton(
                       title: 'ปัจจัยเสี่ยง',
                       changeIndexButton: changeButton,
                       index: 2,
                       changecolorbutton: kheaderColor,
                     )
-                  : buttonNew(
+                  : NewButton(
                       title: 'ปัจจัยเสี่ยง',
                       changeIndexButton: changeButton,
                       index: 2,
@@ -129,13 +110,13 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
                 width: 5,
               ),
               indexbutton == 3
-                  ? buttonNew(
+                  ? NewButton(
                       title: 'อาการ',
                       changeIndexButton: changeButton,
                       index: 3,
                       changecolorbutton: kheaderColor,
                     )
-                  : buttonNew(
+                  : NewButton(
                       title: 'อาการ',
                       changeIndexButton: changeButton,
                       index: 3,
@@ -146,9 +127,9 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
         ),
         SizedBox(
           height: indexbutton == 1
-              ? size.height - 70
+              ? size.height - 20
               : indexbutton == 2
-                  ? size.height - 115
+                  ? size.height - 40
                   : size.height - 260,
           child: Stack(
             children: [
@@ -177,21 +158,22 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       indexbutton == 1
-                          ? TextOuput(
+                          // widgets text_output.dart
+                          ? TextOutput(
                               title: 'มะเร็งผิว',
                               icon: FaIcon(
                                 FontAwesomeIcons.viruses,
                                 color: Colors.white,
                               ))
                           : indexbutton == 2
-                              ? TextOuput(
+                              ? TextOutput(
                                   title: 'ความเสี่ยง',
                                   icon: FaIcon(
                                     FontAwesomeIcons.headSideCough,
                                     color: Colors.white,
                                   ),
                                 )
-                              : TextOuput(
+                              : TextOutput(
                                   title: 'อาการ',
                                   icon: FaIcon(
                                     FontAwesomeIcons.headSideVirus,
@@ -225,142 +207,5 @@ class _SkinCancerScreenState extends State<SkinCancerScreen> {
         )
       ],
     ));
-  }
-
-  Widget SelectWidget(Size size) {
-    if (indexbutton == 1) {
-      return skinCancer(size, detail[0]);
-    } else if (indexbutton == 2) {
-      return skinCancer(size, detail[1]);
-    } else {
-      return skinCancer(size, detail[2]);
-    }
-  }
-
-  Padding skinCancer(Size size, String title) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: size.width,
-        decoration: BoxDecoration(
-            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(30)),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
-                    fontFamily: 'Taitham3',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Center(
-              child: Text('ผู้เขียน',
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Taitham3')),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'พญ.พจนา  จิตตวัฒนรัตน์ ',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Taitham3'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class buttonNew extends StatelessWidget {
-  final String title;
-  final Function changeIndexButton;
-  final int index;
-  final Color changecolorbutton;
-  const buttonNew({
-    Key key,
-    this.title,
-    this.changeIndexButton,
-    this.index,
-    this.changecolorbutton,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => changeIndexButton(index),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 270,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: changecolorbutton,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Taitham3'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextOuput extends StatelessWidget {
-  final String title;
-  final FaIcon icon;
-  const TextOuput({
-    Key key,
-    this.title,
-    this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-        decoration: BoxDecoration(
-            color: kheaderColor, borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            icon
-          ],
-        ),
-      ),
-    );
   }
 }

@@ -3,6 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skincacer_project_final/constrance.dart';
+import 'package:skincacer_project_final/widgets/output_detail.dart';
+
+import '../../widgets/build_card_image.dart';
+import '../../widgets/new_button.dart';
+import '../../widgets/output_header.dart';
+import '../../widgets/text_output.dart';
 
 class PredictionRed extends StatefulWidget {
   const PredictionRed({Key key}) : super(key: key);
@@ -12,12 +18,6 @@ class PredictionRed extends StatefulWidget {
 }
 
 class _PredictionRedState extends State<PredictionRed> {
-  TextStyle headerstyle = TextStyle(
-      fontSize: 17,
-      color: kheaderColor,
-      fontFamily: 'Taitham3',
-      fontWeight: FontWeight.bold);
-
   int indexbutton = 2;
 
   List<String> imageslist = [
@@ -101,58 +101,34 @@ class _PredictionRedState extends State<PredictionRed> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   indexbutton == 1
-                      ? buttonNew(
+                      ? NewButton(
                           changeIndexButton: changeButton,
                           index: 1,
                           title: 'การรักษา',
-                          changecolorfont: Colors.white,
-                          changecolorbutton: kbuttonWidgetColor,
+                          changecolorbutton: kheaderColor,
                         )
-                      : buttonNew(
+                      : NewButton(
                           changeIndexButton: changeButton,
                           index: 1,
                           title: 'การรักษา',
-                          changecolorbutton: Colors.white,
-                          changecolorfont: kheaderColor,
+                          changecolorbutton: kbuttonWidgetColor,
                         ),
                   indexbutton == 2
-                      ? buttonNew(
+                      ? NewButton(
+                          changeIndexButton: changeButton,
+                          index: 2,
+                          title: 'หมายเหตุ',
+                          changecolorbutton: kheaderColor,
+                        )
+                      : NewButton(
                           changeIndexButton: changeButton,
                           index: 2,
                           title: 'หมายเหตุ',
                           changecolorbutton: kbuttonWidgetColor,
-                          changecolorfont: Colors.white,
-                        )
-                      : buttonNew(
-                          changeIndexButton: changeButton,
-                          index: 2,
-                          title: 'หมายเหตุ',
-                          changecolorbutton: Colors.white,
-                          changecolorfont: kheaderColor,
                         ),
                 ],
               ),
             ),
-
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     indexbutton == 1
-            //         ? selectButtonleft(
-            //             color: kbuttonWidgetColor,
-            //           )
-            //         : selectButtonleft(
-            //             color: kbackgroundColor,
-            //           ),
-            //     indexbutton == 2
-            //         ? selectButtonright(
-            //             color: kbuttonWidgetColor,
-            //           )
-            //         : selectButtonright(
-            //             color: kbackgroundColor,
-            //           )
-            //   ],
-            // ),
             Column(
               children: [
                 SizedBox(
@@ -163,8 +139,8 @@ class _PredictionRedState extends State<PredictionRed> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.white54,
-                              // border: Border.all(color: kheaderColor, width: 1),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey, width: 1),
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,14 +170,14 @@ class _PredictionRedState extends State<PredictionRed> {
                                   child: ListView(
                                       scrollDirection: Axis.horizontal,
                                       children: [
-                                        buildCardImage(
+                                        BuildCardImage(
                                           imageList: images[0],
                                         ),
-                                        buildCardImage(
+                                        BuildCardImage(
                                           imageList: images[1],
                                         ),
-                                        buildCardImage(imageList: images[2]),
-                                        buildCardImage(imageList: images[3])
+                                        BuildCardImage(imageList: images[2]),
+                                        BuildCardImage(imageList: images[3])
                                       ])),
                             ],
                           ),
@@ -216,8 +192,15 @@ class _PredictionRedState extends State<PredictionRed> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: size.height * 0.05),
-                    height: size.height + 380,
-                    decoration: const BoxDecoration(
+                    height: size.height + 450,
+                    decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 7,
+                              blurRadius: 5,
+                              offset: Offset(0, 3))
+                        ],
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(24),
@@ -232,21 +215,21 @@ class _PredictionRedState extends State<PredictionRed> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           indexbutton == 1
-                              ? TextOuput(
+                              ? TextOutput(
                                   title: 'การรักษา ',
                                   icon: FaIcon(
                                     FontAwesomeIcons.heartbeat,
                                     color: Colors.white,
                                   ))
                               : indexbutton == 2
-                                  ? TextOuput(
+                                  ? TextOutput(
                                       title: 'หมายเหตุ',
                                       icon: FaIcon(
                                         FontAwesomeIcons.book,
                                         color: Colors.white,
                                       ),
                                     )
-                                  : TextOuput(
+                                  : TextOutput(
                                       title: 'หมายเหตุ',
                                       icon: FaIcon(
                                         FontAwesomeIcons.book,
@@ -278,7 +261,7 @@ class _PredictionRedState extends State<PredictionRed> {
                               images: imageslist[1],
                               detail: detail[0],
                             )
-                          : skinCancer(size, 'test'),
+                          : Container(),
                       indexbutton == 1
                           ? WidgetTreatment(
                               size: size,
@@ -293,6 +276,21 @@ class _PredictionRedState extends State<PredictionRed> {
                               images: imageslist[2],
                               detail: detail[2])
                           : Container(),
+                      indexbutton == 2
+                          ? Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: kbottomColor),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(
+                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop"),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
                 ],
@@ -302,107 +300,6 @@ class _PredictionRedState extends State<PredictionRed> {
         )
       ]),
       backgroundColor: kbackgroundColor,
-    );
-  }
-
-  Padding skinCancer(Size size, String title) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: size.width,
-        decoration: BoxDecoration(
-            color: kbottomColor, borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                '\tเเอปพลิเคชันนี้ได้จัดทำจากการนำรูปของชาวต่างชาติมาใช้ในการเทรน Ai ให้สามารถ จำเเนกรูปภาพไฝที่มีความเสี่ยงต่อการเป็นโรคมะเร็งผิวหนังเเละเนื่องด้วย สีผิวหรือลักษณะของผิวอาจจะมีความเเตกต่างกับคนไทย จึ่งทำให้ประสิทธิภาพในการจำเเนกภาพลดลงเเละด้วยเหตุนี้ หากเเอปพลิเคชันทำการจำเเนกภาพของคุณอยู่ในกลุ่มเสี่ยง ',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
-                    fontFamily: 'Taitham3',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class selectButtonright extends StatelessWidget {
-  final Color color;
-  const selectButtonright({
-    Key key,
-    this.color,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: Container(
-        width: 150,
-        height: 5,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: color),
-      ),
-    );
-  }
-}
-
-class selectButtonleft extends StatelessWidget {
-  final Color color;
-  const selectButtonleft({
-    Key key,
-    this.color,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
-      child: Container(
-        width: 150,
-        height: 5,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: color),
-      ),
-    );
-  }
-}
-
-class buildCardImage extends StatelessWidget {
-  final String imageList;
-  const buildCardImage({
-    Key key,
-    this.imageList,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: (Container(
-        width: 350,
-        height: 250,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.indigo),
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-                image: AssetImage(imageList), fit: BoxFit.cover),
-            color: Colors.white54),
-        // child: Padding(
-        //   padding: const EdgeInsets.all(16.0),
-        //   child: Image.asset(
-        //     imageList,
-        //     fit: BoxFit.cover,
-        //   ),
-        // ),
-      )),
     );
   }
 }
@@ -478,128 +375,6 @@ class WidgetTreatment extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class OutputHeader extends StatelessWidget {
-  final String title;
-  final FaIcon icon;
-  const OutputHeader({
-    Key key,
-    this.title,
-    this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 15,
-                color: kheaderColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            icon
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class buttonNew extends StatelessWidget {
-  final String title;
-  final Function changeIndexButton;
-  final Color changecolorbutton;
-  final int index;
-  final Color changecolorfont;
-  const buttonNew({
-    Key key,
-    this.title,
-    this.changeIndexButton,
-    this.index,
-    this.changecolorbutton,
-    this.changecolorfont,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => changeIndexButton(index),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 270,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        decoration: BoxDecoration(
-          color: changecolorbutton,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  color: changecolorfont,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Taitham3'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextOuput extends StatelessWidget {
-  final String title;
-  final FaIcon icon;
-  const TextOuput({
-    Key key,
-    this.title,
-    this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-        decoration: BoxDecoration(
-            color: kheaderColor, borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            icon
-          ],
         ),
       ),
     );

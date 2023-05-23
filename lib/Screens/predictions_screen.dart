@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables, void_checks
 
 import 'dart:io';
 
@@ -7,8 +7,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skincacer_project_final/Screens/menu/prediction_green.dart';
 import 'package:skincacer_project_final/Screens/menu/prediction_red.dart';
+import 'package:skincacer_project_final/Screens/menu/skin_cancer_screen.dart';
 import 'package:skincacer_project_final/constrance.dart';
+import 'package:skincacer_project_final/widgets/show_image.dart';
 import 'package:tflite/tflite.dart';
+
+import '../widgets/custom_button.dart';
+import '../widgets/predict_result.dart';
+import '../widgets/show_logo.dart';
 
 class PredictionsScreen extends StatefulWidget {
   const PredictionsScreen({
@@ -133,25 +139,25 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                           ),
                           Center(
                             child: _loading == true
-                                ? boxLogoImages()
-                                : boxResultImages(image: _image),
+                                ? BoxLogoImages()
+                                : ShowImage(image: _image),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           _output != null && _output[0]['label'] == 'malignent'
-                              ? Predict_result(
+                              ? PredictResult(
                                   color: Colors.red,
                                   index: 1,
-                                  reslut: 'พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
+                                  result: 'พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
                                   value: _output[0]['confidence'] * 100,
                                 )
                               : _output != null &&
                                       _output[0]['label'] == 'benign'
-                                  ? Predict_result(
+                                  ? PredictResult(
                                       color: Colors.green,
                                       index: 2,
-                                      reslut:
+                                      result:
                                           'ไม่พบความเสี่ยงในการเป็นมะเร็งผิวหนัง',
                                       value: _output[0]['confidence'] * 100,
                                     )
@@ -173,12 +179,18 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
                           SizedBox(
                             height: 20,
                           ),
-                          customButton("Take a Photo", iconSvg[0], pickImage),
+                          // widgets custom_button.dart
+                          CustomButton(
+                              title: "Take a Photo",
+                              icon: iconSvg[0],
+                              onclick: pickImage),
                           SizedBox(
                             height: 10,
                           ),
-                          customButton(
-                              "Camera Roll", iconSvg[1], pickGalleryImage),
+                          CustomButton(
+                              title: "Camera Roll",
+                              icon: iconSvg[1],
+                              onclick: pickGalleryImage),
                         ],
                       ),
                     )))
@@ -186,202 +198,5 @@ class _PredictionsScreenState extends State<PredictionsScreen> {
         ],
       ),
     ]);
-  }
-
-  Widget customButton(
-    String title,
-    String icon,
-    VoidCallback onclick,
-  ) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: onclick,
-          child: Container(
-            width: MediaQuery.of(context).size.width - 200,
-            alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 17),
-            decoration: BoxDecoration(
-              color: kbuttonWidgetColor,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Row(
-              children: [
-                SvgPicture.asset(icon),
-                SizedBox(
-                  width: 13,
-                ),
-                Text(
-                  title,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class Predict_result extends StatelessWidget {
-  final String reslut;
-  final Color color;
-  final int index;
-  final double value;
-
-  const Predict_result({
-    Key key,
-    this.reslut,
-    this.color,
-    this.index,
-    this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'ผลการทำนาย',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Taitham3',
-          ),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        GestureDetector(
-          onTap: () {
-            if (index == 1) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PredictionRed(),
-                  ));
-            } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PredictionGreen(),
-                  ));
-            }
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                color: color, borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  index == 1
-                      ? Column(
-                          children: [
-                            Text(reslut,
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    color: Colors.white,
-                                    fontFamily: 'Taitham3')),
-                            Text(
-                              '${value.toStringAsFixed(2)} % ',
-                              style: TextStyle(
-                                  fontSize: 21,
-                                  color: Colors.white,
-                                  fontFamily: 'taitham3'),
-                            )
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            Text(reslut,
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    color: Colors.white,
-                                    fontFamily: 'Taitham3')),
-                            Text(
-                              '${value.toStringAsFixed(2)} % ',
-                              style: TextStyle(
-                                  fontSize: 21,
-                                  color: Colors.white,
-                                  fontFamily: 'taitham3'),
-                            )
-                          ],
-                        ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white54,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 5, bottom: 5),
-                      child: Text('คลิ๊กเพื่อดูรายละเอียด',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class boxResultImages extends StatelessWidget {
-  const boxResultImages({
-    Key key,
-    @required File image,
-  })  : _image = image,
-        super(key: key);
-
-  final File _image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-              height: MediaQuery.of(context).size.width * 0.6,
-              width: MediaQuery.of(context).size.width * 0.6,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.file(
-                  _image,
-                  fit: BoxFit.fill,
-                ),
-              )),
-          SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class boxLogoImages extends StatelessWidget {
-  const boxLogoImages({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.width * 0.6,
-        width: MediaQuery.of(context).size.width * 0.6,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: Image.asset('assets/images/menu/maledoctor.png')));
   }
 }

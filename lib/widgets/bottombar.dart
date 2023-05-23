@@ -10,46 +10,43 @@ class BottomBarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //add ClipRRect widget for Round Corner
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(24),
-          topLeft: Radius.circular(24),
-        ),
-        child: BottomNavigationBar(
-          backgroundColor: kbottomColor,
-          selectedIconTheme: const IconThemeData(color: Colors.white),
-          unselectedIconTheme: IconThemeData(color: kheaderColor),
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.camera,
-              ),
-              label: 'Prediction',
-              backgroundColor: kbottomColor,
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(24),
+        topLeft: Radius.circular(24),
+      ),
+      child: BottomNavigationBar(
+        backgroundColor: kbottomColor,
+        selectedIconTheme: const IconThemeData(color: Colors.white),
+        unselectedIconTheme: IconThemeData(color: kheaderColor),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.camera,
             ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.book),
-              label: 'Manual',
-              backgroundColor: kbottomColor,
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.heartbeat),
-              label: 'Treatment',
-              backgroundColor: kbottomColor,
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.virus),
-              label: 'Skin Cancer',
-              backgroundColor: kbottomColor,
-            ),
-          ],
-          currentIndex: selectItem,
-          selectedItemColor: Colors.white,
-          onTap: onItemTapped,
-        ),
+            label: 'Prediction',
+            backgroundColor: kbottomColor,
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.book),
+            label: 'Manual',
+            backgroundColor: kbottomColor,
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.heartbeat),
+            label: 'Treatment',
+            backgroundColor: kbottomColor,
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.virus),
+            label: 'Skin Cancer',
+            backgroundColor: kbottomColor,
+          ),
+        ],
+        currentIndex: selectItem,
+        selectedItemColor: Colors.white,
+        onTap: onItemTapped,
       ),
     );
   }

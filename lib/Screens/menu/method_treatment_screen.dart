@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:skincacer_project_final/constrance.dart';
 
+import '../../widgets/new_button.dart';
+import '../../widgets/output_detail.dart';
+import '../../widgets/output_header.dart';
+import '../../widgets/text_output.dart';
+
 class MethodTreatmentScreen extends StatefulWidget {
   const MethodTreatmentScreen({Key key}) : super(key: key);
 
@@ -12,23 +17,11 @@ class MethodTreatmentScreen extends StatefulWidget {
 }
 
 class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
-  TextEditingController myController = TextEditingController();
-
-  String newcontroller = ' ';
-
-  TextStyle headerstyle = TextStyle(
-      fontSize: 17,
-      color: kheaderColor,
-      fontFamily: 'Taitham3',
-      fontWeight: FontWeight.bold);
-
   int indexbutton = 1;
-  List<String> detectword = [];
 
   void changeButton(int index) {
     setState(() {
       indexbutton = index;
-      print(indexbutton);
     });
   }
 
@@ -38,24 +31,14 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
     '\t\t\t\t\t\tการป้องกัน\n\n 1.หลีกเลี่ยงแสงแดด ใช้ครีมกันแดด SPF > 15\n\n 2. หลีกเลี่ยงภาวะระคายเคืองผิวหนัง'
   ];
 
-  List<String> detectwordmanual = [
-    'คู่มือ',
-    'คุ่มือ',
-    'การใช้',
-    'แอปพลิเคชัน',
-    'แอพ',
-    'เเอปพลิเคชัน',
-    'เเอพ',
-    'ก',
-    'm',
-    'appication',
-    'a'
-  ];
-
-  String i = '';
-
-  void searchText() {
-    newcontroller = myController.text;
+  Widget SelectWidget(Size size) {
+    if (indexbutton == 1) {
+      return OutputDetail(size: size, title: detail[0]);
+    } else if (indexbutton == 2) {
+      return OutputDetail(size: size, title: detail[1]);
+    } else {
+      return OutputDetail(size: size, title: detail[2]);
+    }
   }
 
   @override
@@ -83,38 +66,11 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
         SizedBox(
           height: 10,
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 7,
-                    blurRadius: 5,
-                    offset: Offset(0, 3))
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'วิธีการรักษา\t วินิจฉัย/การรักษาเเละป้องกัน',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: kheaderColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Icon(
-                  Icons.health_and_safety_rounded,
-                  color: kheaderColor,
-                )
-              ],
-            ),
+        OutputHeader(
+          title: 'วิธีการรักษา\t วินิจฉัย/รักษาเเละป้องกัน',
+          icon: FaIcon(
+            FontAwesomeIcons.heartCircleCheck,
+            color: kheaderColor,
           ),
         ),
         Padding(
@@ -122,13 +78,13 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
           child: Row(
             children: [
               indexbutton == 1
-                  ? buttonNew(
+                  ? NewButton(
                       title: 'วินิจฉัย',
                       changeIndexButton: changeButton,
                       index: 1,
                       changecolorbutton: kheaderColor,
                     )
-                  : buttonNew(
+                  : NewButton(
                       title: 'วินิจฉัย',
                       changeIndexButton: changeButton,
                       index: 1,
@@ -138,13 +94,13 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
                 width: 5,
               ),
               indexbutton == 2
-                  ? buttonNew(
+                  ? NewButton(
                       title: 'การรักษา',
                       changeIndexButton: changeButton,
                       index: 2,
                       changecolorbutton: kheaderColor,
                     )
-                  : buttonNew(
+                  : NewButton(
                       title: 'การรักษา',
                       changeIndexButton: changeButton,
                       index: 2,
@@ -154,13 +110,13 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
                 width: 5,
               ),
               indexbutton == 3
-                  ? buttonNew(
+                  ? NewButton(
                       title: 'การป้องกัน',
                       changeIndexButton: changeButton,
                       index: 3,
                       changecolorbutton: kheaderColor,
                     )
-                  : buttonNew(
+                  : NewButton(
                       title: 'การป้องกัน',
                       changeIndexButton: changeButton,
                       index: 3,
@@ -202,21 +158,22 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       indexbutton == 1
-                          ? TextOuput(
+                          // widgets text_output.dart
+                          ? TextOutput(
                               title: 'วินิจฉัย',
                               icon: FaIcon(
                                 FontAwesomeIcons.stethoscope,
                                 color: Colors.white,
                               ))
                           : indexbutton == 2
-                              ? TextOuput(
+                              ? TextOutput(
                                   title: 'รักษา',
                                   icon: FaIcon(
                                     FontAwesomeIcons.heartbeat,
                                     color: Colors.white,
                                   ),
                                 )
-                              : TextOuput(
+                              : TextOutput(
                                   title: 'ป้องกัน',
                                   icon: FaIcon(
                                     FontAwesomeIcons.shield,
@@ -254,153 +211,5 @@ class _MethodTreatmentScreenState extends State<MethodTreatmentScreen> {
         )
       ],
     ));
-  }
-
-  Widget SelectWidget(Size size) {
-    newcontroller = myController.text;
-
-    for (i in detectwordmanual) {
-      if (i == newcontroller) {
-        indexbutton = 2;
-      }
-    }
-
-    if (indexbutton == 1) {
-      return skinCancer(size, detail[0]);
-    } else if (indexbutton == 2) {
-      return skinCancer(size, detail[1]);
-    } else {
-      return skinCancer(size, detail[2]);
-    }
-  }
-
-  Padding skinCancer(Size size, String title) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: size.width,
-        decoration: BoxDecoration(
-            color: kbuttonWidgetColor, borderRadius: BorderRadius.circular(30)),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontFamily: 'Taitham3',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Text('ผู้เขียน',
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Taitham3')),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'พญ.พจนา  จิตตวัฒนรัตน์ ',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Taitham3'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextOuput extends StatelessWidget {
-  final String title;
-  final FaIcon icon;
-  const TextOuput({
-    Key key,
-    this.title,
-    this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-        decoration: BoxDecoration(
-            color: kheaderColor, borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            icon
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ignore: camel_case_types
-class buttonNew extends StatelessWidget {
-  final String title;
-  final Function changeIndexButton;
-  final int index;
-  final Color changecolorbutton;
-  const buttonNew({
-    Key key,
-    this.title,
-    this.changeIndexButton,
-    this.index,
-    this.changecolorbutton,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => changeIndexButton(index),
-      child: Container(
-        width: MediaQuery.of(context).size.width - 270,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: changecolorbutton,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

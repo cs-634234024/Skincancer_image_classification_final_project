@@ -26,8 +26,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-  int selectAbout = 4;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

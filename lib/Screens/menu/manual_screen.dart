@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../constrance.dart';
+import '../../widgets/output_header.dart';
 
 class ManualScreen extends StatefulWidget {
   const ManualScreen({Key key}) : super(key: key);
@@ -58,37 +59,11 @@ class _ManualScreenState extends State<ManualScreen> {
           SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 10),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              decoration: BoxDecoration(
-                boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 7 , 
-                      blurRadius: 5 , 
-                      offset: Offset(0, 3)
-                    )
-                  ],
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'คู่มือในการใช้งาน เเอปพลิเคชัน',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: kheaderColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Icon(
-                    Icons.book,
-                    color: kheaderColor,
-                  )
-                ],
-              ),
+          OutputHeader(
+            title: 'คู่มือ\t เเละการใช้เเอปพลิเคชันเบื้องต้น ',
+            icon: FaIcon(
+              FontAwesomeIcons.book,
+              color: kheaderColor,
             ),
           ),
           SizedBox(
@@ -98,15 +73,14 @@ class _ManualScreenState extends State<ManualScreen> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: Container(
               width: size.width,
-              height: 1820,
+              height: 520,
               decoration: BoxDecoration(
-                boxShadow: [
+                  boxShadow: [
                     BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 7 , 
-                      blurRadius: 5 , 
-                      offset: Offset(0, 3)
-                    )
+                        color: Colors.grey,
+                        spreadRadius: 7,
+                        blurRadius: 5,
+                        offset: Offset(0, 3))
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -148,48 +122,5 @@ class _ManualScreenState extends State<ManualScreen> {
         ])
       ])
     ]);
-  }
-}
-
-class TextOutput extends StatelessWidget {
-  const TextOutput({
-    Key key,
-    @required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0, right: 5, left: 5),
-      child: Container(
-        width: size.width,
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5), color: kbottomColor),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'ดร.ศศิน จันทร์พวงทอง',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  fontFamily: 'Taitham3'),
-            ),
-            const Text(
-              'อาจารย์ที่ปรึกษา',
-              style: TextStyle(
-                fontFamily: 'Taitham3',
-                fontSize: 18,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
