@@ -1,7 +1,8 @@
-// ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: unnecessary_const, prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, non_constant_identifier_names, empty_constructor_bodies
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:skincacer_project_final/Screens/menu/prediction_red.dart';
 
 import '../../constrance.dart';
 import '../../widgets/output_header.dart';
@@ -26,10 +27,18 @@ class _ManualScreenState extends State<ManualScreen> {
     });
   }
 
-  List<String> detail = [
-    '\t\t\t\t\t\tการตรวจวินิจฉัย\n\n การรักษามะเร็งผิวหนังที่ดีที่สุดคือ การค้นพบตั้งแต่แรกเริ่ม โดยต้องสำรวจร่างกายตัวเองให้ทั่ว ซึ่งต้องใช้กระจกและมือช่วย ถ้ามีข้อสงสัยให้ปรึกษาแพทย์ผิวหนังเพื่อการวินิจฉัย ซึ่งทำได้โดยการตัดชิ้นเนื้อบริเวณที่สงสัยส่งตรวจทางพยาธิวิทยา',
-    '\t\t\t\t\t\tการบำบัดรักษา \n\n มะเร็งผิวหนังระยะเริ่มต้นใช้วิธีการผ่าตัดก็สามารถหายขาดได้ แต่หากเป็นมะเร็งระยะกระจายหรือมะเร็งผิวหนังเมลาโนมา หลังผ่าตัดอาจต้องมีการใช้การฉายแสงหรือเคมีบำบัดร่วมได้',
-    '\t\t\t\t\t\tการป้องกัน\n\n 1.หลีกเลี่ยงแสงแดด ใช้ครีมกันแดด SPF > 15\n\n 2. หลีกเลี่ยงภาวะระคายเคืองผิวหนัง'
+  List<String> details = [
+    'เลือก ปุ่ม Take a Photo เพื่อถ่ายรูป ใฝ ของคุณ หรือ เลือก ปุ่ม Camera Roll เพื่อเลือกรูปจาก เเกลลอรี่ของคุณ ในการทำนายผล  ',
+    'หลังจากการทำนายผล สามารถคลิ๊กเพื่อดูรายละเอียด ของการเป็นโรคได้ หรือหาก ไม่พบความเสี่ยงในการเป็นโรคก็สามารถ คลิ๊กเพื่อดูรายละเอียดเเละข้อมูลเพื่มเติมของโรคมะเร็งได้ ',
+    'หลังจาก คลิ๊กเพื่อดูรายละเอียด เพิ่มเติมท่าน สามารถอ่านรายละเอียด ของขั้นตอนการรักษาได้ หรือ คลิ๊กไปที่ปุ่ม หมายเหตุ เพื่อดูรายละเอียดของการใช้โมเดลนี้ในการคำนวณผลการเป็นโรคมะเร็ง',
+    'ท่านสามารถเลือกเมนูด่านล่าง เพื่อเข้าไปดูรายละเอียดต่างๆของ ตัวเเอปพลิเคชัน ไม่ว่าจะเป็น เมนูการรักษา เมนูมะเร็งคืออะไร หรือเมนูคู่มือในการใช้เเอปพลิเคชัน เพื่อดูรายละเอียดต่างๆ '
+  ];
+
+  List<String> images = [
+    'assets/images/manual/m1.png',
+    'assets/images/manual/m2.png',
+    'assets/images/manual/m3.png',
+    'assets/images/manual/m4.png',
   ];
 
   @override
@@ -73,7 +82,7 @@ class _ManualScreenState extends State<ManualScreen> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: Container(
               width: size.width,
-              height: 520,
+              height: size.height + 1900,
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -114,6 +123,26 @@ class _ManualScreenState extends State<ManualScreen> {
                         ),
                       ),
                     ),
+                    ManualCard(
+                      title: 'ขั้นตอนที่ 1 ',
+                      images: images[0],
+                      detail: details[0],
+                    ),
+                    ManualCard(
+                      title: 'ขั้นตอนที่ 2 ',
+                      images: images[1],
+                      detail: details[1],
+                    ),
+                    ManualCard(
+                      title: 'ขั้นตอนที่ 3 ',
+                      images: images[2],
+                      detail: details[2],
+                    ),
+                    ManualCard(
+                      title: 'ขั้นตอนที่ 4 ',
+                      images: images[3],
+                      detail: details[3],
+                    )
                   ],
                 ),
               ),
@@ -122,5 +151,82 @@ class _ManualScreenState extends State<ManualScreen> {
         ])
       ])
     ]);
+  }
+}
+
+class ManualCard extends StatelessWidget {
+  final String title;
+  final String images;
+  final String detail;
+  const ManualCard({
+    Key key,
+    this.title,
+    this.images,
+    this.detail,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 15.0),
+        child: Container(
+          width: size.width,
+          height: 400,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: kbackgroundColor),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white70,
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(20))),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Image.asset(
+                    images,
+                    scale: 6,
+                  ),
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white70),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        detail,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

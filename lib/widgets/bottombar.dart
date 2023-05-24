@@ -18,8 +18,8 @@ class BottomBarScreen extends StatelessWidget {
       child: BottomNavigationBar(
         backgroundColor: kbottomColor,
         selectedIconTheme: const IconThemeData(color: Colors.white),
-        unselectedIconTheme: IconThemeData(color: kheaderColor),
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedIconTheme: const IconThemeData(color: kheaderColor),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: FaIcon(
